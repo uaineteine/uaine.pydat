@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 def read_requirements():
-    with open('.github/workflows/pypack_requirements.txt', 'r') as req_file:
+    with open('requirements.txt', 'r') as req_file:
         return req_file.read().splitlines()
 
 setup(

@@ -2,6 +2,6 @@ _pycache_/*
 *.pyc
 trained_models/processing/*
 .vscode/*
-arxivquery.egg-info/*
 dist/*
 build/*
+uainepydat.egg-info/*
