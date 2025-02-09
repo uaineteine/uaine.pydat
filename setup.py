@@ -5,12 +5,12 @@ def read_requirements():
         return req_file.read().splitlines()
 
 setup(
-    name='arxivquery',
-    version='1.0.5',
+    name='uainepydat',
+    version='1.0.0',
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
-    description='A simple wrapper for extracting Arxiv search results to a workable dataframe',
-    url='https://github.com/uaineteine/ArxivAPI',  
+    description='A python package to assist in data and database handling',
+    url='https://github.com/uaineteine/uaine.pydat',  
     packages=["arxivapi"],
     classifiers=[
         'Programming Language :: Python :: 3',

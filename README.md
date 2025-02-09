@@ -1,14 +1,12 @@
-# STATUS v1.0.5
+# STATUS v1.0
 
 [![Execution tests](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml)
 
 [![Packaging Test](https://github.com/uaineteine/ArxivAPI/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/packaging_test.yml)
 
-[Arxiv Status](https://status.arxiv.org/)
+# Uaine PyDat
 
-# ArxivAPI
-
-This is a Python script that uses the ArXiv API to scrape information about research papers.
+A python package to assist in data and database handling.
 
 # Purpose
 
@@ -20,8 +18,7 @@ In addition to the ArXiv API, the script also incorporates BeautifulSoup for dir
 
 1. **Python**
 2. **requests**: This library is used to send HTTP requests to the ArXiv API.
-3. **BeautifulSoup**: This library is used to parse the XML response from the ArXiv API.
 4. **pandas**: This library is used to store and manipulate the scraped data.
-5. **re**: For regular expressions
+5. **duckdb**: This library is used to create duck db requests and queries from its metadata tables
 
 #### Daniel Stamer-Squair
