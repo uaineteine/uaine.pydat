@@ -1,8 +1,6 @@
 # STATUS v1.0
 
-[![Execution tests](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml)
-
-[![Packaging Test](https://github.com/uaineteine/ArxivAPI/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/packaging_test.yml)
+[![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
 
 # Uaine PyDat
 
