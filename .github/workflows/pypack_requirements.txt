@@ -1,0 +1,10 @@
+scikit-learn
+gensim
+numpy
+pandas
+requests
+bs4
+tqdm
+regex
+wheel
+twine
