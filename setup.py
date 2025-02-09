@@ -11,7 +11,7 @@ setup(
     author_email='uaine.teine@hotmail.com',
     description='A python package to assist in data and database handling',
     url='https://github.com/uaineteine/uaine.pydat',  
-    packages=["arxivapi"],
+    packages=["uainepydat"],
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
