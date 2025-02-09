@@ -2,3 +2,4 @@ pandas
 requests
 duckdb
 wheel
+twine
