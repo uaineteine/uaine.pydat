@@ -1,6 +1,7 @@
 # STATUS v1.0
 
 [![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
+[![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml)
 
 # Uaine PyDat
 

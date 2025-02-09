@@ -1,8 +1,8 @@
-name: Packaging Test
+name: Packaging Test - dev
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop, test ]
 
 jobs:
   build:
