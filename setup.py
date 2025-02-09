@@ -10,6 +10,8 @@ setup(
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
     description='A python package to assist in data and database handling',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/uaineteine/uaine.pydat',  
     packages=["uainepydat"],
     classifiers=[
