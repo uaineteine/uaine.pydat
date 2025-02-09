@@ -8,9 +8,7 @@ A python package to assist in data and database handling.
 
 # Purpose
 
-This is a Python script that primarily uses the ArXiv API to scrape information about research papers. As a standard, the script sends a request to the ArXiv API with specific search parameters. The API returns a list of papers that match these parameters. The script then parses this data and extracts the relevant information about each paper, such as the title, authors, abstract, and ArXiv identifier.
-
-In addition to the ArXiv API, the script also incorporates BeautifulSoup for direct HTTP scraping as a backup. This means that if the ArXiv API is unavailable or fails to return the desired information, the script can fall back on BeautifulSoup to scrape the data directly from the ArXiv website. This ensures that the script remains functional and reliable even under less than ideal circumstances.
+This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
 
 # Requirements
 
