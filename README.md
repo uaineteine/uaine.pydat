@@ -18,6 +18,6 @@ This contains a few functions that make data handling a little simpler, includin
 4. **pandas**: This library is used to store and manipulate the scraped data.
 5. **duckdb**: This library is used to create duck db requests and queries from its metadata tables
 6. **wheel**: This is for making the package yourself
-7. **wheel**: This is for making the package yourself
+7. **twine**: This is for making the package yourself
 
 #### Daniel Stamer-Squair
