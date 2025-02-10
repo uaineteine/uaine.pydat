@@ -6,5 +6,10 @@ def hash256hmac(datastr, sha_salt):
     return hmac_object.hexdigest()
 
 def hash256(datastr, sha_salt): 
-    hmac_object = hmac.new(sha_salt, datastr.encode('utf-8'), hashlib.sha256)
-    return hmac_object.hexdigest()
+    combined = (message + salt).encode()
+    # Create a SHA-256 hash object
+    sha256 = hashlib.sha256()
+    # Update the hash object with the combined message and salt
+    sha256.update(combined)
+    
+    return sha256.hexdigest() #output hex
