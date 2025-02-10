@@ -1,4 +1,5 @@
 pandas
+pyreadstat
 requests
 duckdb
 wheel
