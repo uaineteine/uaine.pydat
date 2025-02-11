@@ -26,6 +26,7 @@ jobs:
     - name: Run penguinz
       run: |
         mkdir -p /tmp/pynguin-results
+        export PYNGUIN_DANGER_AWARE="ok"
         pynguin \
         --project-path ./uainepydat \
         --output-path /tmp/pynguin-results \
