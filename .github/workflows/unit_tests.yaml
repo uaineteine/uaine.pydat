@@ -31,3 +31,4 @@ jobs:
         --project-path ./uainepydat \
         --output-path /tmp/pynguin-results \
         --module-name dataclean
+        ls /tmp/pynguin-results
