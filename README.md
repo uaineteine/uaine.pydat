@@ -8,11 +8,11 @@ This contains a few functions that make data handling a little simpler, includin
 
 #### STATUS ![Version 0.5](https://img.shields.io/badge/version-0.5-brightgreen)
 
-[![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
+[![Lint Check](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml) [![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
 
 DEVELOPMENT:
 
-[![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml)
+[![Lint Check - dev](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check_dev.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check_dev.yaml) [![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml)
 
 # Requirements
 
