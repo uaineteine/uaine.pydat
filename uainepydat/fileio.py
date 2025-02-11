@@ -1,8 +1,12 @@
 import configparser
 import os
+import glob
 import sys
 import pandas as pd
 import requests
+
+def list_files_of_extension(directory, extn):
+    return glob.glob(os.path.join(directory, "*."+extn))
 
 def get_file_extension(filepath):
     _, file_extension = os.path.splitext(filepath)
