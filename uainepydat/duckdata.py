@@ -21,3 +21,20 @@ def getCurrentTimeForDuck(timezone_included=False):
         return datetime.now().strftime('%Y-%m-%d %H:%M:%S %z')
     #else:
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+def init_table(con, frame, db, tablename):
+    #takes in a frame of string columns VARNAME and TYPE
+    #those formats should be duckDB compatible
+    exist = does_table_exist(con, db, tablename)
+    if (exist == False):
+        print("Creating table " + db + "." + tablename)
+
+        tbl_ref = db + "." + tablename
+        exstring = "CREATE TABLE IF NOT EXISTS " + tbl_ref + "("
+        # Create a comma-delimited list with variable names and types
+        exstring = exstring + ', '.join([f"{row['VARNAME']} {row['TYPE']}" for _, row in frame.iterrows()])
+        exstring = exstring + ")"
+        con.sql(exstring)
+        return True
+    #else
+    return False
