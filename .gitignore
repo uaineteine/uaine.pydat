@@ -5,3 +5,4 @@ trained_models/processing/*
 dist/*
 build/*
 uainepydat.egg-info/*
+automation/devscripts/key.txt
