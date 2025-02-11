@@ -1,15 +1,18 @@
-# STATUS v0.5
-
-[![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
-[![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml)
-
-# Uaine PyDat
+# Uaine.Pydat
 
 A python package to assist in data and database handling.
 
 # Purpose
 
 This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
+
+#### STATUS ![Version 0.5](https://img.shields.io/badge/version-0.5-brightgreen)
+
+[![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
+
+DEVELOPMENT:
+
+[![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml)
 
 # Requirements
 
