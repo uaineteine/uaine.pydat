@@ -47,7 +47,7 @@ def create_filepath_dirs(path):
 
 def download_file_from_url(url, save_path):
     response = requests.get(url)
-	create_filepath_dirs(save_path)
+    create_filepath_dirs(save_path)
     with open(save_path, 'wb') as file:
         file.write(response.content)
 
