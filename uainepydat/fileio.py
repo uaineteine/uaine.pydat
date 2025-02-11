@@ -1,4 +1,6 @@
+import configparser
 import os
+import sys
 import pandas as pd
 import requests
 
@@ -10,6 +12,8 @@ def write_df(df, filepath, index=False):
         df.to_excel(filepath, index=index)
     elif format == "parquet":
         df.to_parquet(filepath, index=index)
+    elif format == "psv":
+        df.to_csv(filepath, sep="|", index=index)
     else:
         raise ValueError
 
@@ -62,3 +66,19 @@ def read_file_to_bytes(file_path):
     content = read_file_to_string(file_path)
     # Convert the string content to bytes using UTF-8 
     return content.encode('utf-8')
+
+#read the config file
+def read_ini_file(file_path):
+    config = configparser.ConfigParser()
+    config.read(file_path)
+    
+    variables = {}
+    for section in config.sections():
+        for key, value in config.items(section):
+            variables[key] = value
+    
+    return variables
+
+def addsyspath(directory):
+    if directory not in sys.path:
+        sys.path.append(directory)
