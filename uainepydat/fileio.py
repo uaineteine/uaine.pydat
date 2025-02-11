@@ -5,7 +5,8 @@ import pandas as pd
 import requests
 
 def get_file_extension(filepath):
-    return filepath.split(".")[-1]
+    _, file_extension = os.path.splitext(filepath)
+    return file_extension
 
 def write_df(df, filepath, index=False):
     format = get_file_extension(filepath)
@@ -45,7 +46,7 @@ def check_folder_in_filepath(path):
         return False
     else:
         # Check if the path has a file extension
-        _, file_extension = os.path.splitext(dir_name)
+        file_extension = get_file_extension(dir_name)
         if file_extension:
             #print(f"The path '{path}' appears to be a file.")
             return False
