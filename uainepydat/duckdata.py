@@ -38,3 +38,7 @@ def init_table(con, frame, db, tablename):
         return True
     #else
     return False
+
+def getDuckVersion(con):
+    df = con.sql("SELECT version() AS version").df()
+    return df[0]
