@@ -104,8 +104,8 @@ def addsyspath(directory):
     if directory not in sys.path:
         sys.path.append(directory)
 
-def select_dataset_ui():
-    files = list_files_of_extension('source data', "csv")
+def select_dataset_ui(directory, extension):
+    files = list_files_of_extension(directory, extension)
     for i, filename in enumerate(files):
         print(f"{i+1}. {filename}")
     selected = int(input("Enter the number of the dataset you want to select: ")) - 1
