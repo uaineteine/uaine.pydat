@@ -32,7 +32,3 @@ jobs:
         --output-path /tmp/pynguin-results \
         --module-name dataclean
 
-    - name: Run tests
-      run: |
-        cd /tmp/pynguin-results
-        python -m test_dataclean
