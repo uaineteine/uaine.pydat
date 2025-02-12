@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
         pip install pynguin
 
-    - name: Run penguinz
+    - name: Make tests
       run: |
         mkdir -p /tmp/pynguin-results
         export PYNGUIN_DANGER_AWARE="ok"
@@ -31,4 +31,8 @@ jobs:
         --project-path ./uainepydat \
         --output-path /tmp/pynguin-results \
         --module-name dataclean
-        cat /tmp/pynguin-results/test_dataclean.py
+
+    - name: Run tests
+      run: |
+        cd /tmp/pynguin-results
+        python -m test_dataclean
