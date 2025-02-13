@@ -16,3 +16,5 @@ documentation for details.
    :caption: Contents:
 
 .. autofunction:: dataclean.clean_whitespace_in_df
+.. autofunction:: datahash.hashhmac
+.. autofunction:: datahash.hash256
