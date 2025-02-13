@@ -6,3 +6,4 @@ dist/*
 build/*
 uainepydat.egg-info/*
 automation/devscripts/key.txt
+docs/build/*
