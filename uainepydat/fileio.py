@@ -4,11 +4,25 @@ import glob
 import sys
 import pandas as pd
 import requests
+from typing import List
 
-def list_files_of_extension(directory, extn):
-    return glob.glob(os.path.join(directory, "*."+extn))
+def list_files_of_extension(directory: str, extn: str) -> List[str]:
+    """
+    List all files in the specified directory with the given extension.
 
-def get_file_extension(filepath):
+    :param directory: The directory to search in.
+    :param extn: The file extension to filter by.
+    :return: A list of file paths with the specified extension.
+    """
+    return glob.glob(os.path.join(directory, "*." + extn))
+
+def get_file_extension(filepath: str) -> str:
+    """
+    Get the file extension of the given file path.
+
+    :param filepath: The path of the file.
+    :return: The file extension of the file.
+    """
     _, file_extension = os.path.splitext(filepath)
     return file_extension
 
