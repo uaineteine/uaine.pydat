@@ -15,6 +15,13 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
-.. autofunction:: dataclean.clean_whitespace_in_df
-.. autofunction:: datahash.hashhmac
-.. autofunction:: datahash.hash256
+.. automodule:: fileio
+   :members:
+.. automodule:: freespace
+   :members:
+.. automodule:: dataclean
+   :members:
+.. automodule:: datahash
+   :members:
+.. automodule:: duckdata
+   :members:
