@@ -1,3 +1,3 @@
 python setup.py sdist bdist_wheel
 
-python -m twine upload --repository uainepydat dist/*
+py -m twine upload dist/*
