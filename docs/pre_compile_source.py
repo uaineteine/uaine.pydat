@@ -21,5 +21,9 @@ rst_lines = list(map(rst_text, modules))
 pre_compile_path = "source/index.rst_pre"
 pre_str = fileio.read_file_to_string(pre_compile_path)
 post_str = dataclean.replace_between_tags(pre_str, "automodule", rst_lines)
-print(post_str)
 
+post_compile_path = "source/index.rst"
+#overwrite the index.rst now
+with open(post_compile_path, "w") as text_file:
+    text_file.write(post_str)
+print("Updated rst file")
