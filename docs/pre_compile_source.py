@@ -20,7 +20,7 @@ rst_lines = list(map(rst_text, modules))
 #open pre-compile file and edit lines
 pre_compile_path = "source/index.rst_pre"
 pre_str = fileio.read_file_to_string(pre_compile_path)
-post_str = dataclean.replace_between_tags(pre_str, "automodule", rst_lines)
+post_str = dataclean.replace_between_tags(pre_str, "automodule", rst_lines, deleteTags=True)
 
 post_compile_path = "source/index.rst"
 #overwrite the index.rst now
