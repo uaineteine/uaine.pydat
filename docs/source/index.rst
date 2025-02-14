@@ -15,13 +15,15 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
-.. automodule:: fileio
-   :members:
-.. automodule:: freespace
-   :members:
+<automodule>
 .. automodule:: dataclean
    :members:
 .. automodule:: datahash
    :members:
 .. automodule:: duckdata
    :members:
+.. automodule:: fileio
+   :members:
+.. automodule:: freespace
+   :members:
+</automodule>

@@ -94,8 +94,7 @@ def read_file_to_string(file_path):
     # Read the string content from the file
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
-    # Convert the string content to bytes using UTF-8 
-    return content.encode('utf-8')
+    return content
 
 def read_file_to_bytes(file_path):
     content = read_file_to_string(file_path)
