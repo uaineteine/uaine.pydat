@@ -31,7 +31,27 @@ def break_into_lines(string: str) -> list[str]:
 
 
 def add_prefix(string: str, prefix: str) -> str:
+    """
+    Add the specified prefix to the string.
+
+    Parameters:
+    string (str): The original string.
+    prefix (str): The prefix to add to the string.
+
+    Returns:
+    str: The string with the prefix added.
+    """
     return prefix + string
 
 def add_suffix(string: str, suffix: str) -> str:
+    """
+    Add the specified suffix to the string.
+
+    Parameters:
+    string (str): The original string.
+    suffix (str): The suffix to add to the string.
+
+    Returns:
+    str: The string with the suffix added.
+    """
     return string + suffix
