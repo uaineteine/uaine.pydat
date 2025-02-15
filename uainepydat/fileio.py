@@ -89,16 +89,33 @@ def download_file_from_url(url, save_path):
     with open(save_path, 'wb') as file:
         file.write(response.content)
 
-def read_file_to_string(file_path):
-    # Read the string content from the file
+def read_file_to_string(file_path: str) -> str:
+    """
+    Read the string content from the specified file.
+
+    Parameters:
+    file_path (str): The path to the file.
+
+    Returns:
+    str: The content of the file as a string.
+    """
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
     return content
 
-def read_file_to_bytes(file_path):
+def read_file_to_bytes(file_path: str) -> bytes:
+    """
+    Read the string content from the specified file and convert it to bytes using UTF-8 encoding.
+
+    Parameters:
+    file_path (str): The path to the file.
+
+    Returns:
+    bytes: The content of the file as bytes.
+    """
     content = read_file_to_string(file_path)
-    # Convert the string content to bytes using UTF-8 
     return content.encode('utf-8')
+
 
 #read the config file
 def read_ini_file(file_path):
