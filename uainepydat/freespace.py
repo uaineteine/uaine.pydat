@@ -41,7 +41,7 @@ def list_drives() -> list[str]:
     """
     return [drive.device for drive in psutil.disk_partitions()]
 
-def list_drive_spaces() -> pd.DataFrame:
+def list_drive_spaces() -> DataFrame:
     """
     List all available drives and their free space in gigabytes (GB).
 
