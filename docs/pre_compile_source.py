@@ -2,10 +2,11 @@ import os
 from uainepydat import fileio
 from uainepydat import dataclean
 
-# Example usage
 relative_directory = "../uainepydat"  # Replace with your relative directory path
 python_files = fileio.list_files_of_extension(os.path.abspath(relative_directory), "py")
 modules = [os.path.splitext(os.path.basename(filepath))[0] for filepath in python_files]
+#sort these modules out in alphabetical order
+modules = sorted(modules)
 
 print("Python modules identified in the directory: " + relative_directory)
 for file in modules:
