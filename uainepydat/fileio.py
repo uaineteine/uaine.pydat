@@ -4,9 +4,8 @@ import glob
 import sys
 import pandas as pd
 import requests
-from typing import List
 
-def list_files_of_extension(directory: str, extn: str) -> List[str]:
+def list_files_of_extension(directory: str, extn: str) -> list[str]:
     """
     List all files in the specified directory with the given extension.
 

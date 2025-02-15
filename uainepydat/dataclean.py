@@ -23,3 +23,22 @@ def replace_between_tags(content: str, tag_name: str, new_lines: List[str], dele
     new_content = content[:start_index + len(start_tag)] + '\n' + '\n'.join(new_lines) + '\n' + content[end_index:]
 
     return new_content
+
+def break_into_lines(string: str) -> list[str]:
+    """
+    Breaks a string into a list of lines.
+
+    Args:
+        string (str): The input string to be broken into lines.
+
+    Returns:
+        list[str]: A list of lines from the input string.
+    """
+    return string.split('\n')
+
+
+def add_prefix(string: str, prefix: str) -> str:
+    return prefix + string
+
+def add_suffix(string: str, suffix: str) -> str:
+    return string + suffix
