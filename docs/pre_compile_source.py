@@ -27,3 +27,9 @@ post_compile_path = "source/index.rst"
 with open(post_compile_path, "w") as text_file:
     text_file.write(post_str)
 print("Updated rst file")
+
+#update the dependency list
+requirements_path = "../requirements.txt"
+#make these into dotpoints
+requirements = fileio.read_file_to_string(requirements_path)
+#requirements = dataclean.break_into_lines(requirements)

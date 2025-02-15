@@ -6,16 +6,24 @@
 Uaine.Pydat documentation
 =========================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+A python package to assist in data and database handling.
 
+This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-<automodule>
+Dependencies
+=========================
+
+<dependencies>
+</dependencies>
+
+Functionality
+=========================
+
+
 .. automodule:: dataclean
    :members:
 .. automodule:: datahash
@@ -26,4 +34,5 @@ documentation for details.
    :members:
 .. automodule:: freespace
    :members:
+<automodule>
 </automodule>
