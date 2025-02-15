@@ -112,11 +112,30 @@ def read_ini_file(file_path):
     
     return variables
 
-def addsyspath(directory):
+def addsyspath(directory: str) -> None:
+    """
+    Add the specified directory to the system path if it is not already included.
+
+    Parameters:
+    directory (str): The directory to be added to the system path.
+
+    Returns:
+    None
+    """
     if directory not in sys.path:
         sys.path.append(directory)
 
-def select_dataset_ui(directory, extension):
+def select_dataset_ui(directory: str, extension: str) -> str:
+    """
+    List the files with the specified extension in the given directory and prompt the user to select one.
+
+    Parameters:
+    directory (str): The directory to search for files.
+    extension (str): The file extension to filter by.
+
+    Returns:
+    str: The filename of the selected dataset.
+    """
     files = list_files_of_extension(directory, extension)
     for i, filename in enumerate(files):
         print(f"{i+1}. {filename}")
