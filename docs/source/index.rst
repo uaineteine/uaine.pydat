@@ -28,6 +28,8 @@ Functionality
    :members:
 .. automodule:: datahash
    :members:
+.. automodule:: datatransform
+   :members:
 .. automodule:: duckdata
    :members:
 .. automodule:: fileio
