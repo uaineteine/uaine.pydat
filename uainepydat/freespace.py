@@ -57,6 +57,27 @@ def get_largest_drive():
     index = df["space_free_gb"].idxmax()
     return df.loc[index]
 
+import psutil
+
+def get_free_ram_in_gb() -> float:
+    """
+    Get the amount of free RAM on the system in gigabytes.
+
+    This function uses the `psutil` library to retrieve the amount of free RAM
+    and converts it from bytes to gigabytes.
+
+    Returns:
+        float: The amount of free RAM in gigabytes.
+    """
+    # Get the amount of free RAM in bytes
+    free_ram_bytes = psutil.virtual_memory().available
+
+    # Convert the amount of free RAM from bytes to gigabytes
+    free_ram_gb = free_ram_bytes / (1024 ** 3)
+
+    return free_ram_gb
+
+
 #example executions
 #print(freespace.free_gb_in_drive("C"))
 #print(freespace.list_drives())
