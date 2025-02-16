@@ -57,8 +57,6 @@ def get_largest_drive():
     index = df["space_free_gb"].idxmax()
     return df.loc[index]
 
-import psutil
-
 def get_free_ram_in_gb() -> float:
     """
     Get the amount of free RAM on the system in gigabytes.
