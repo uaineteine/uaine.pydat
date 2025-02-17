@@ -83,9 +83,22 @@ def create_filepath_dirs(path):
         path = os.path.dirname(path)
         os.makedirs(path, exist_ok=True)
 
-def download_file_from_url(url, save_path):
+def download_file_from_url(url: str, save_path: str) -> None:
+    """
+    Downloads a file from the given URL and saves it to the specified path.
+
+    Args:
+        url (str): The URL of the file to download.
+        save_path (str): The file path where the downloaded file will be saved.
+
+    Returns:
+        None
+    """
+    # Send a GET request to the URL
     response = requests.get(url)
+    # Ensure that the directory structure exists for the save_path
     create_filepath_dirs(save_path)
+    # Write the content of the response to the file in binary mode
     with open(save_path, 'wb') as file:
         file.write(response.content)
 
