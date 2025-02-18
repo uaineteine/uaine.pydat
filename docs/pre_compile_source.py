@@ -14,7 +14,8 @@ for file in modules:
 
 #make auto modules
 def rst_text(module_name):
-    return ".. automodule:: " + module_name + "\n   :members:"
+    rst = module_name + "\n========="
+    return rst + "\n.. automodule:: " + module_name + "\n   :members:"
 rst_lines = list(map(rst_text, modules))
 #print(rst_lines)
 
