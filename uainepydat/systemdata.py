@@ -77,5 +77,5 @@ def get_free_ram_in_gb() -> float:
 
 
 #example executions
-#print(freespace.free_gb_in_drive("C"))
-#print(freespace.list_drives())
+#print(systatus.free_gb_in_drive("C"))
+#print(systatus.list_drives())
