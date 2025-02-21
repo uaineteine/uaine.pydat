@@ -14,8 +14,8 @@ for file in modules:
 
 #make auto modules
 def rst_text(module_name):
-    rst = module_name + "\n========="
-    return rst + "\n.. automodule:: " + module_name + "\n   :members:"
+    rst = module_name + "\n=========================" + "\n"
+    return rst + "\n.. automodule:: " + module_name + "\n   :members:" + "\n"
 rst_lines = list(map(rst_text, modules))
 #print(rst_lines)
 
@@ -30,6 +30,7 @@ requirements_path = "../requirements.txt"
 requirements = fileio.read_file_to_string(requirements_path)
 requirements = datatransform.break_into_lines(requirements)
 requirements = list(map(lambda string: datatransform.add_prefix(string, "* "), requirements))
+requirements.append("\n")
 post_str = datatransform.replace_between_tags(post_str, "dependencies", requirements, deleteTags=True)
 
 post_compile_path = "source/index.rst"
