@@ -1,5 +1,6 @@
 import os
 import glob
+import subprocess
 import sys
 import requests
 
@@ -98,7 +99,7 @@ def read_file_to_bytes(file_path: str) -> bytes:
     content = read_file_to_string(file_path)
     return content.encode('utf-8')
 
-def addsyspath(directory: str)
+def addsyspath(directory: str):
     """
     Add the specified directory to the system path if it is not already included.
 
@@ -110,3 +111,18 @@ def addsyspath(directory: str)
     """
     if directory not in sys.path:
         sys.path.append(directory)
+
+import subprocess
+
+def mv_file(src: str, dest: str):
+    """
+    Moves a file from the source path to the destination path.
+    
+    Parameters:
+    src (str): The path of the file to be moved.
+    dest (str): The destination path where the file should be moved.
+    
+    Returns:
+    None
+    """
+    subprocess.run(["mv", src, dest])
