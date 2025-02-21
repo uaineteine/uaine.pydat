@@ -1,9 +1,23 @@
 import configparser
 import pandas as pd
 import fileio
-import systemdata
+import systeminfo
 
-def write_flat_df(df, filepath, index=False):
+import pandas as pd
+import fileio
+
+def write_flat_df(df: pd.DataFrame, filepath: str, index: bool = False)
+    """
+    Write a DataFrame to a flat file in different formats.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to be written.
+        filepath (str): The path where the file will be saved.
+        index (bool): Whether to write row names (index). Default is False.
+
+    Returns:
+        None
+    """
     format = fileio.get_file_extension(filepath)
     if format == "csv":
         df.to_csv(filepath, chunksize=50000, index=index)
@@ -16,7 +30,16 @@ def write_flat_df(df, filepath, index=False):
     else:
         raise ValueError
 
-def read_flat_df(filepath):
+def read_flat_df(filepath: str) -> pd.DataFrame:
+    """
+    Read a flat file into a DataFrame.
+
+    Args:
+        filepath (str): The path to the flat file.
+
+    Returns:
+        pd.DataFrame: The DataFrame read from the file.
+    """
     format = fileio.get_file_extension(filepath)
     if format == "csv":
         return pd.read_csv(filepath)
@@ -29,7 +52,16 @@ def read_flat_df(filepath):
     else:
         raise ValueError
 
-def read_flat_psv(path):
+def read_flat_psv(path: str) -> pd.DataFrame:
+    """
+    Read a pipe-separated values (PSV) file into a DataFrame.
+
+    Args:
+        path (str): The path to the PSV file.
+
+    Returns:
+        pd.DataFrame: The DataFrame read from the PSV file.
+    """
     return pd.read_csv(path, delimiter='|')
 
 #read the config file
