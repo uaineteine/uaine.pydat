@@ -1,10 +1,43 @@
 import configparser
 import pandas as pd
 import fileio
-import systeminfo
-
+#import systeminfo
 import pandas as pd
 import fileio
+
+def read_sas_metadata(filepath: str, encoding: str = "latin-1") -> dict:
+    """
+    Read SAS file metadata and return names, labels, formats, and lengths of columns.
+
+    Args:
+        filepath (str): The path to the SAS file.
+        encoding (str): The encoding to use for reading the SAS file. Default is "latin-1".
+
+    Returns:
+        dict: A dictionary containing the column names, labels, formats, and lengths.
+    """
+    df = pd.read_sas(filepath, chunksize=1, encoding=encoding)
+    sascols = df.columns(df)
+    return {
+        "names":  [a.name for a in sascols],
+        "labels": [a.label for a in sascols],
+        "format": [a.format for a in sascols],
+        "length": [a.length for a in sascols]
+    }
+
+def read_sas_colnames(filepath: str, encoding: str = "latin-1") -> list:
+    """
+    Read SAS file column names.
+
+    Args:
+        filepath (str): The path to the SAS file.
+        encoding (str): The encoding to use for reading the SAS file. Default is "latin-1".
+
+    Returns:
+        list: A list of column names from the SAS file.
+    """
+    metadata = read_sas_metadata(filepath, encoding=encoding)
+    return metadata["names"]
 
 def write_flat_df(df: pd.DataFrame, filepath: str, index: bool = False)
     """
