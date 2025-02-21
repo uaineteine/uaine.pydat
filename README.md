@@ -29,3 +29,4 @@ DEVELOPMENT:
 5. **duckdb**: This library is used to create duck db requests and queries from its metadata tables
 6. **wheel**: This is for making the package yourself
 7. **twine**: This is for making the package yourself
+8. **psutil**: This is for checking process availability of
