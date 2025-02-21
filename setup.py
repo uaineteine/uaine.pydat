@@ -6,7 +6,7 @@ def read_requirements():
 
 setup(
     name='uainepydat',
-    version='0.9',
+    version='0.9.1',
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
     description='A python package to assist in data and database handling',
@@ -19,7 +19,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     install_requires=read_requirements(),
     package_data={'': ['LICENSE']}  # Specify the license file here
 )

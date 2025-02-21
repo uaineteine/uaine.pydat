@@ -8,7 +8,7 @@ A python package to assist in data and database handling.
 
 This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
 
-#### STATUS ![Version 0.9](https://img.shields.io/badge/version-0.9-brightgreen)
+#### STATUS ![Version 0.9.1](https://img.shields.io/badge/version-0.9.1-brightgreen)
 
 [![Lint Check](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml) [![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
 
@@ -29,3 +29,4 @@ DEVELOPMENT:
 5. **duckdb**: This library is used to create duck db requests and queries from its metadata tables
 6. **wheel**: This is for making the package yourself
 7. **twine**: This is for making the package yourself
+8. **psutil**: This is for checking process availability of
