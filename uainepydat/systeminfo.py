@@ -1,7 +1,6 @@
 import shutil
 import psutil
 import pandas as pd
-from pandas import DataFrame
 
 def gather_free_space_in_drive(drive: str) -> float:
     """
@@ -41,7 +40,7 @@ def list_drives() -> list[str]:
     """
     return [drive.device for drive in psutil.disk_partitions()]
 
-def list_drive_spaces() -> DataFrame:
+def list_drive_spaces() -> pd.DataFrame:
     """
     List all available drives and their free space in gigabytes (GB).
 

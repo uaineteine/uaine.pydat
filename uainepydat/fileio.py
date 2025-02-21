@@ -53,7 +53,7 @@ def create_filepath_dirs(path):
         path = os.path.dirname(path)
         os.makedirs(path, exist_ok=True)
 
-def download_file_from_url(url: str, save_path: str)
+def download_file_from_url(url: str, save_path: str):
     """
     Downloads a file from the given URL and saves it to the specified path.
 
