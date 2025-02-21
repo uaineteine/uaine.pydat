@@ -1,8 +1,8 @@
-import configparser
 import os
 import glob
+import subprocess
 import sys
-import pandas as pd
+import uuid
 import requests
 
 def list_files_of_extension(directory: str, extn: str) -> list[str]:
@@ -24,35 +24,6 @@ def get_file_extension(filepath: str) -> str:
     """
     _, file_extension = os.path.splitext(filepath)
     return file_extension
-
-def write_df(df, filepath, index=False):
-    format = get_file_extension(filepath)
-    if format == "csv":
-        df.to_csv(filepath, chunksize=50000, index=index)
-    elif format in ("xlsx", "xls"):
-        df.to_excel(filepath, index=index)
-    elif format == "parquet":
-        df.to_parquet(filepath, index=index)
-    elif format == "psv":
-        df.to_csv(filepath, sep="|", index=index)
-    else:
-        raise ValueError
-
-def read_df(filepath):
-    format = get_file_extension(filepath)
-    if format == "csv":
-        return pd.read_csv(filepath)
-    elif format in ("xlsx", "xls"):
-        return pd.read_excel(filepath)
-    elif format == "parquet":
-        return pd.read_parquet(filepath)
-    elif format == "psv":
-        return read_psv(filepath)
-    else:
-        raise ValueError
-
-def read_psv(path):
-    return pd.read_csv(path, delimiter='|')
 
 def check_folder_in_filepath(path):
     # Get the directory name of the path
@@ -83,42 +54,80 @@ def create_filepath_dirs(path):
         path = os.path.dirname(path)
         os.makedirs(path, exist_ok=True)
 
-def download_file_from_url(url, save_path):
+def download_file_from_url(url: str, save_path: str):
+    """
+    Downloads a file from the given URL and saves it to the specified path.
+
+    Args:
+        url (str): The URL of the file to download.
+        save_path (str): The file path where the downloaded file will be saved.
+
+    Returns:
+        None
+    """
+    # Send a GET request to the URL
     response = requests.get(url)
+    # Ensure that the directory structure exists for the save_path
     create_filepath_dirs(save_path)
+    # Write the content of the response to the file in binary mode
     with open(save_path, 'wb') as file:
         file.write(response.content)
 
-def read_file_to_string(file_path):
-    # Read the string content from the file
+def read_file_to_string(file_path: str) -> str:
+    """
+    Read the string content from the specified file.
+
+    Parameters:
+    file_path (str): The path to the file.
+
+    Returns:
+    str: The content of the file as a string.
+    """
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
     return content
 
-def read_file_to_bytes(file_path):
+def read_file_to_bytes(file_path: str) -> bytes:
+    """
+    Read the string content from the specified file and convert it to bytes using UTF-8 encoding.
+
+    Parameters:
+    file_path (str): The path to the file.
+
+    Returns:
+    bytes: The content of the file as bytes.
+    """
     content = read_file_to_string(file_path)
-    # Convert the string content to bytes using UTF-8 
     return content.encode('utf-8')
 
-#read the config file
-def read_ini_file(file_path):
-    config = configparser.ConfigParser()
-    config.read(file_path)
-    
-    variables = {}
-    for section in config.sections():
-        for key, value in config.items(section):
-            variables[key] = value
-    
-    return variables
+def addsyspath(directory: str):
+    """
+    Add the specified directory to the system path if it is not already included.
 
-def addsyspath(directory):
+    Parameters:
+    directory (str): The directory to be added to the system path.
+
+    Returns:
+    None
+    """
     if directory not in sys.path:
         sys.path.append(directory)
 
-def select_dataset_ui(directory, extension):
-    files = list_files_of_extension(directory, extension)
-    for i, filename in enumerate(files):
-        print(f"{i+1}. {filename}")
-    selected = int(input("Enter the number of the dataset you want to select: ")) - 1
-    return files[selected]
+def mv_file(src: str, dest: str):
+    """
+    Moves a file from the source path to the destination path.
+    
+    Parameters:
+    src (str): The path of the file to be moved.
+    dest (str): The destination path where the file should be moved.
+    
+    Returns:
+    None
+    """
+    subprocess.run(["mv", src, dest])
+
+def gen_tmp_subfolder(master_dir):
+    guid = str(uuid.uuid4()) #output folder location
+    out_folder = os.path.join(master_dir, guid)
+    create_filepath_dirs(out_folder)
+    return out_folder

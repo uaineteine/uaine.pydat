@@ -9,11 +9,10 @@ def replace_between_tags(content: str, tag_name: str, new_lines: list[str], dele
         raise ValueError("Tags not found in the content")
 
     #delete tags themeselves by modifying the selection index
-    if (deleteTags):
-        start_index = start_index - len(start_tag)
-        end_index = end_index - len(end_tag)
-
-    new_content = content[:start_index + len(start_tag)] + '\n' + '\n'.join(new_lines) + '\n' + content[end_index:]
+    if deleteTags:
+        new_content = content[:start_index] + '\n'.join(new_lines) + content[end_index + len(end_tag):]
+    else:
+        new_content = content[:start_index + len(start_tag)] + '\n' + '\n'.join(new_lines) + '\n' + content[end_index:]
 
     return new_content
 
@@ -31,7 +30,27 @@ def break_into_lines(string: str) -> list[str]:
 
 
 def add_prefix(string: str, prefix: str) -> str:
+    """
+    Add the specified prefix to the string.
+
+    Parameters:
+    string (str): The original string.
+    prefix (str): The prefix to add to the string.
+
+    Returns:
+    str: The string with the prefix added.
+    """
     return prefix + string
 
 def add_suffix(string: str, suffix: str) -> str:
+    """
+    Add the specified suffix to the string.
+
+    Parameters:
+    string (str): The original string.
+    suffix (str): The suffix to add to the string.
+
+    Returns:
+    str: The string with the suffix added.
+    """
     return string + suffix
