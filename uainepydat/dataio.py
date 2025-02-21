@@ -1,6 +1,6 @@
 import configparser
 import pandas as pd
-import fileio
+from uainepydat import fileio
 import pandas as pd
 
 def read_sas_metadata(filepath: str, encoding: str = "latin-1") -> dict:
