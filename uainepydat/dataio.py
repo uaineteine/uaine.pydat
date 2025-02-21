@@ -33,15 +33,24 @@ def read_flat_psv(path):
     return pd.read_csv(path, delimiter='|')
 
 #read the config file
-def read_ini_file(file_path):
+def read_ini_file(file_path: str) -> dict:
+    """
+    Read an INI file and return its contents as a dictionary.
+
+    Args:
+        file_path (str): The path to the INI file.
+
+    Returns:
+        dict: A dictionary containing the key-value pairs from the INI file.
+    """
     config = configparser.ConfigParser()
     config.read(file_path)
-    
+
     variables = {}
     for section in config.sections():
         for key, value in config.items(section):
             variables[key] = value
-    
+
     return variables
 
 def select_dataset_ui(directory: str, extension: str) -> str:
