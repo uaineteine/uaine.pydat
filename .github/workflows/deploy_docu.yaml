@@ -24,7 +24,7 @@ jobs:
           sh build.bat
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
         with:
           publish_branch: develop
           github_token: ${{ secrets.GITHUB_TOKEN }}
