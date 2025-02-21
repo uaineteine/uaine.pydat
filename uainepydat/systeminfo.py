@@ -74,8 +74,6 @@ def get_free_ram_in_gb() -> float:
 
     return free_ram_gb
 
-import psutil
-
 def get_number_virtual_cores() -> int:
     """
     Get the number of virtual (logical) CPU cores including hyperthreads.
