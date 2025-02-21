@@ -30,4 +30,4 @@ jobs:
       run: |
         cd uainepydat
         cp ../.github/workflows/import_test.py import_test.py
-        python -m import_test.py
+        python -m import_test
