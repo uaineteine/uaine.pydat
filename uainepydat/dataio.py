@@ -1,8 +1,9 @@
 import configparser
 import pandas as pd
 import fileio
+import systemdata
 
-def write_df(df, filepath, index=False):
+def write_flat_df(df, filepath, index=False):
     format = fileio.get_file_extension(filepath)
     if format == "csv":
         df.to_csv(filepath, chunksize=50000, index=index)
@@ -15,7 +16,7 @@ def write_df(df, filepath, index=False):
     else:
         raise ValueError
 
-def read_df(filepath):
+def read_flat_df(filepath):
     format = fileio.get_file_extension(filepath)
     if format == "csv":
         return pd.read_csv(filepath)
@@ -24,11 +25,11 @@ def read_df(filepath):
     elif format == "parquet":
         return pd.read_parquet(filepath)
     elif format == "psv":
-        return read_psv(filepath)
+        return read_flat_psv(filepath)
     else:
         raise ValueError
 
-def read_psv(path):
+def read_flat_psv(path):
     return pd.read_csv(path, delimiter='|')
 
 #read the config file
