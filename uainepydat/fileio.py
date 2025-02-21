@@ -2,6 +2,7 @@ import os
 import glob
 import subprocess
 import sys
+import uuid
 import requests
 
 def list_files_of_extension(directory: str, extn: str) -> list[str]:
@@ -112,8 +113,6 @@ def addsyspath(directory: str):
     if directory not in sys.path:
         sys.path.append(directory)
 
-import subprocess
-
 def mv_file(src: str, dest: str):
     """
     Moves a file from the source path to the destination path.
@@ -126,3 +125,9 @@ def mv_file(src: str, dest: str):
     None
     """
     subprocess.run(["mv", src, dest])
+
+def gen_tmp_subfolder(master_dir):
+    guid = str(uuid.uuid4()) #output folder location
+    out_folder = os.path.join(master_dir, guid)
+    create_filepath_dirs(out_folder)
+    return out_folder
