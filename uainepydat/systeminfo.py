@@ -75,6 +75,45 @@ def get_free_ram_in_gb() -> float:
 
     return free_ram_gb
 
+import psutil
+
+def get_number_virtual_cores() -> int:
+    """
+    Get the number of virtual (logical) CPU cores including hyperthreads.
+
+    Returns:
+        int: The number of virtual CPU cores.
+    """
+    return psutil.cpu_count(logical=True)
+
+def get_physical_cores() -> int:
+    """
+    Get the number of physical CPU cores.
+
+    Returns:
+        int: The number of physical CPU cores.
+    """
+    return psutil.cpu_count(logical=False)
+
+def get_free_ram() -> int:
+    """
+    Get the amount of free RAM available in bytes.
+
+    Returns:
+        int: The amount of free RAM in bytes.
+    """
+    return psutil.virtual_memory().available
+
+def get_installed_ram_gb() -> int:
+    """
+    Get the total amount of installed RAM in gigabytes (GB).
+
+    Returns:
+        int: The total amount of installed RAM in gigabytes (GB).
+    """
+    ram = psutil.virtual_memory().total
+    ram = ram / (1024 * 1024 * 1024)  # convert to GB
+    return round(ram)
 
 #example executions
 #print(systatus.free_gb_in_drive("C"))
