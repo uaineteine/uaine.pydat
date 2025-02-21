@@ -1,7 +1,6 @@
 import configparser
 import pandas as pd
 import fileio
-#import systeminfo
 import pandas as pd
 import fileio
 
