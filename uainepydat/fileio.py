@@ -52,7 +52,7 @@ def create_filepath_dirs(path):
         path = os.path.dirname(path)
         os.makedirs(path, exist_ok=True)
 
-def download_file_from_url(url: str, save_path: str) -> None:
+def download_file_from_url(url: str, save_path: str)
     """
     Downloads a file from the given URL and saves it to the specified path.
 
@@ -98,7 +98,7 @@ def read_file_to_bytes(file_path: str) -> bytes:
     content = read_file_to_string(file_path)
     return content.encode('utf-8')
 
-def addsyspath(directory: str) -> None:
+def addsyspath(directory: str)
     """
     Add the specified directory to the system path if it is not already included.
 
