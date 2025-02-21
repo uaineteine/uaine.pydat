@@ -39,7 +39,7 @@ def read_sas_colnames(filepath: str, encoding: str = "latin-1") -> list:
     metadata = read_sas_metadata(filepath, encoding=encoding)
     return metadata["names"]
 
-def write_flat_df(df: pd.DataFrame, filepath: str, index: bool = False)
+def write_flat_df(df: pd.DataFrame, filepath: str, index: bool = False):
     """
     Write a DataFrame to a flat file in different formats.
 
