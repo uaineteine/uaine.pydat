@@ -131,3 +131,17 @@ def gen_tmp_subfolder(master_dir):
     out_folder = os.path.join(master_dir, guid)
     create_filepath_dirs(out_folder)
     return out_folder
+
+def list_dirs(main_dir: str) -> list:
+    """
+    List all directories within the specified main directory.
+
+    Args:
+    main_dir (str): The main directory path to list directories from.
+
+    Returns:
+    list: A list of directory names within the specified main directory.
+    """
+    lsall = os.listdir(main_dir)
+    lsd = [dir for dir in lsall if os.path.isdir(os.path.join(main_dir, dir))]
+    return lsd
