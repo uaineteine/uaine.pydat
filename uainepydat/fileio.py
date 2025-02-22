@@ -126,8 +126,31 @@ def mv_file(src: str, dest: str):
     """
     subprocess.run(["mv", src, dest])
 
-def gen_tmp_subfolder(master_dir):
-    guid = str(uuid.uuid4()) #output folder location
-    out_folder = os.path.join(master_dir, guid)
-    create_filepath_dirs(out_folder)
+def gen_random_subfolder(master_dir: str) -> str:
+    """
+    Generates a random subfolder within the specified master directory.
+
+    Args:
+        master_dir (str): The path to the master directory where the subfolder will be created.
+
+    Returns:
+        str: The path to the newly created subfolder.
+    """
+    guid = str(uuid.uuid4())  # Generate a unique identifier for the subfolder
+    out_folder = os.path.join(master_dir, guid)  # Output folder location
+    create_filepath_dirs(out_folder)  # Ensure the directory structure exists
     return out_folder
+
+def list_dirs(main_dir: str) -> list:
+    """
+    List all directories within the specified main directory.
+
+    Args:
+    main_dir (str): The main directory path to list directories from.
+
+    Returns:
+    list: A list of directory names within the specified main directory.
+    """
+    lsall = os.listdir(main_dir)
+    lsd = [dir for dir in lsall if os.path.isdir(os.path.join(main_dir, dir))]
+    return lsd

@@ -6,6 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
 import sys
 from pathlib import Path
 
@@ -16,6 +17,11 @@ project = 'Uaine.Pydat'
 copyright = '2025, Daniel Stamer-Squair'
 author = 'Daniel Stamer-Squair'
 release = '2025'
+# The short X.Y version.
+version_file_path = str(Path('..', "..", 'meta', "version.txt").resolve())
+version = "unkown"
+with open(version_file_path, 'r') as file:
+    version = file.read().strip()
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
