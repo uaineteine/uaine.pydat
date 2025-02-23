@@ -137,7 +137,7 @@ def select_dataset_ui(directory: str, extension: str) -> str:
     selected = int(input("Enter the number of the dataset you want to select: ")) - 1
     return files[selected]
 
-def memory_usage_deep_false(df: pd.DataFrame) -> float:
+def df_memory_usage(df: pd.DataFrame) -> float:
     """
     Calculate the total memory usage of a DataFrame with deep=False.
     
