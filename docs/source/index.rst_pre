@@ -3,12 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Uaine.Pydat documentation
+Uaine.Pydat Documentation
 =========================
 
 A python package to assist in data and database handling.
 
-This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
+<purpose>
+</purpose>
 
 .. toctree::
    :maxdepth: 2
