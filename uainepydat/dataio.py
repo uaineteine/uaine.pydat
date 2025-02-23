@@ -71,8 +71,10 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The DataFrame read from the file.
     """
+    if (os.path.exists(filepath) == False):
+        raise FileNotFoundError(f"File {filepath} does not exist")
+    
     format = fileio.get_file_extension(filepath)
-    #print(format)
     if format == "csv":
         return pd.read_csv(filepath)
     elif format in ("xlsx", "xls"):
@@ -97,6 +99,8 @@ def read_flat_psv(path: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The DataFrame read from the PSV file.
     """
+    if (os.path.exists(path) == False):
+        raise FileNotFoundError(f"File {path} does not exist")
     return pd.read_csv(path, delimiter='|')
 
 #read the config file
@@ -111,6 +115,8 @@ def read_ini_file(file_path: str) -> dict:
         dict: A dictionary containing the key-value pairs from the INI file.
     """
     config = configparser.ConfigParser()
+    if (os.path.exists(file_path) == False):
+        raise FileNotFoundError(f"File {file_path} does not exist")
     config.read(file_path)
 
     variables = {}
