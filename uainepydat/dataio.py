@@ -126,6 +126,29 @@ def read_ini_file(file_path: str) -> dict:
 
     return variables
 
+import configparser
+
+# Define a function to set variables as global
+def set_globals_from_config(configpath: str) -> int:
+    """
+    Sets global variables from a configuration file.
+
+    Parameters:
+    configpath (str): Path to the configuration file.
+
+    Returns:
+    int: The number of global variables set.
+    """
+    # Read the configuration file
+    configvars = read_ini_file(configpath)
+
+    # Loop through the configuration variables and set them as globals
+    for key, var in configvars.items():
+        globals()[key] = var
+
+    # Return the number of global variables set
+    return len(configvars)
+
 def select_dataset_ui(directory: str, extension: str) -> str:
     """
     List the files with the specified extension in the given directory and prompt the user to select one.
