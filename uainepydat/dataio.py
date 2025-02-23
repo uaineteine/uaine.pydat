@@ -72,7 +72,7 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
         pd.DataFrame: The DataFrame read from the file.
     """
     format = fileio.get_file_extension(filepath)
-    print(format)
+    #print(format)
     if format == "csv":
         return pd.read_csv(filepath)
     elif format in ("xlsx", "xls"):
