@@ -72,6 +72,7 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
         pd.DataFrame: The DataFrame read from the file.
     """
     format = fileio.get_file_extension(filepath)
+    print(format)
     if format == "csv":
         return pd.read_csv(filepath)
     elif format in ("xlsx", "xls"):
@@ -80,8 +81,11 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
         return pd.read_parquet(filepath)
     elif format == "psv":
         return read_flat_psv(filepath)
+    elif format == "sas7bdat":
+        return pd.read_sas(filepath)
     else:
-        raise ValueError
+        raise ValueError(f"Unsupported file extension {format}")
+    return None
 
 def read_flat_psv(path: str) -> pd.DataFrame:
     """
@@ -132,3 +136,19 @@ def select_dataset_ui(directory: str, extension: str) -> str:
         print(f"{i+1}. {filename}")
     selected = int(input("Enter the number of the dataset you want to select: ")) - 1
     return files[selected]
+
+def df_memory_usage(df: pd.DataFrame) -> float:
+    """
+    Calculate the total memory usage of a DataFrame with deep=False.
+    
+    Parameters:
+    df (pd.DataFrame): The DataFrame whose memory usage is to be calculated.
+    
+    Returns:
+    float: The total memory usage of the DataFrame in bytes.
+    """
+    # Calculate memory usage of the DataFrame with deep=False
+    memory_usage = df.memory_usage(deep=False)
+    # Sum up the memory usage of all columns
+    total_memory_usage = memory_usage.sum()
+    return total_memory_usage

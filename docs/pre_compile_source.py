@@ -37,6 +37,11 @@ requirements = list(map(lambda string: datatransform.add_prefix(string, "* "), r
 requirements.append("\n")
 post_str = datatransform.replace_between_tags(post_str, "dependencies", requirements, deleteTags=True)
 
+purpose_path = "../meta/purpose.txt"
+pur = fileio.read_file_to_string(purpose_path)
+pur = datatransform.break_into_lines(pur)
+post_str = datatransform.replace_between_tags(post_str, "purpose", pur, deleteTags=True)
+
 post_compile_path = "source/index.rst"
 #overwrite the index.rst now
 with open(post_compile_path, "w") as text_file:

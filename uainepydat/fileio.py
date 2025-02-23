@@ -22,7 +22,8 @@ def get_file_extension(filepath: str) -> str:
     :param filepath: The path of the file.
     :return: The file extension of the file.
     """
-    _, file_extension = os.path.splitext(filepath)
+    bn = os.path.basename(filepath)
+    _, file_extension = os.path.splitext(bn)
     return file_extension
 
 def check_folder_in_filepath(path):
