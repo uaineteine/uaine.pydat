@@ -22,7 +22,7 @@ def get_file_extension(filepath: str) -> str:
     :param filepath: The path of the file.
     :return: The file extension of the file.
     """
-    bn = os.path.basename(bn)
+    bn = os.path.basename(filepath)
     _, file_extension = os.path.splitext(bn)
     return file_extension
 
