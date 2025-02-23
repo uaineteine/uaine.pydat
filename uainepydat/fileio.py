@@ -24,7 +24,7 @@ def get_file_extension(filepath: str) -> str:
     """
     bn = os.path.basename(filepath)
     _, file_extension = os.path.splitext(bn)
-    return file_extension
+    return file_extension[1:]  # Remove the leading dot
 
 def check_folder_in_filepath(path):
     # Get the directory name of the path
