@@ -2,7 +2,7 @@
 
 A python package to assist in data and database handling.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI Downloads](https://static.pepy.tech/badge/uainepydat)](https://pepy.tech/projects/uainepydat)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI Downloads](https://static.pepy.tech/badge/uainepydat)](https://pepy.tech/projects/uainepydat) ![Version 0.11.1](https://img.shields.io/badge/version-0.11.1-brightgreen)
 
 -Daniel Stamer-Squair 
 
@@ -10,7 +10,7 @@ A python package to assist in data and database handling.
 
 This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
 
-#### STATUS ![Version 0.11.1](https://img.shields.io/badge/version-0.11.1-brightgreen)
+#### STATUS 
 
 [![Lint Check](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml) [![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
 
