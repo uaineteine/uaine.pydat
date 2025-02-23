@@ -72,6 +72,7 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
         pd.DataFrame: The DataFrame read from the file.
     """
     format = fileio.get_file_extension(filepath)
+    print(format)
     if format == "csv":
         return pd.read_csv(filepath)
     elif format in ("xlsx", "xls"):
@@ -80,8 +81,11 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
         return pd.read_parquet(filepath)
     elif format == "psv":
         return read_flat_psv(filepath)
+    elif format == "sas7bdat":
+        return pd.read_sas(filepath)
     else:
-        raise ValueError
+        raise ValueError(f"Unsupported file extension {format}")
+    return None
 
 def read_flat_psv(path: str) -> pd.DataFrame:
     """
