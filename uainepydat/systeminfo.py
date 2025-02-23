@@ -7,8 +7,7 @@ def gather_free_space_in_drive(drive: str) -> float:
     Gather the free space in a specified drive.
 
     Parameters:
-    drive (str): The drive to check the free space of. 
-                 If the drive is a single letter, it is assumed to be a Windows drive.
+    drive (str): The drive to check the free space of. If the drive is a single letter, it is assumed to be a Windows drive.
 
     Returns:
     float: The free space in bytes.
