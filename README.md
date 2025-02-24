@@ -25,7 +25,7 @@ DEVELOPMENT:
 ## Requirements
 
 1. **Python**
-2. **requests**: This library is used to send HTTP requests to the ArXiv API.
+2. **requests**: This library is used to send HTTP requests.
 3. **pyreadstat**: This library is used for most read and writing of dataframes.
 4. **pandas**: This library is used to store and manipulate memory held data.
 5. **duckdb**: This library is used to create duck db requests and queries from its metadata tables
