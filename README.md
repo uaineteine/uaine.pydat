@@ -10,13 +10,13 @@ A python package to assist in data and database handling.
 
 This contains a few functions that make data handling a little simpler, including a dedicated psv function, hash functions, data table cleaning methods and snippet queries for duckdb.
 
-#### STATUS 
+#### STABILITY STATUS 
 
-[![Lint Check](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml) [![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml)
+[![Lint Check](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check.yaml) [![Packaging Test](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test.yml) [![Import test](https://github.com/uaineteine/uaine.pydat/actions/workflows/import_package_test.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/import_package_test.yml)
 
 DEVELOPMENT:
 
-[![Lint Check - dev](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check_dev.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check_dev.yaml) [![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml)
+[![Lint Check - dev](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check_dev.yaml/badge.svg)](https://github.com/uaineteine/duck_db_template/actions/workflows/lint_check_dev.yaml) [![Packaging Test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/packaging_test_dev.yml) [![Import test - dev](https://github.com/uaineteine/uaine.pydat/actions/workflows/import_package_test_dev.yml/badge.svg)](https://github.com/uaineteine/uaine.pydat/actions/workflows/import_package_test_dev.yml)
 
 # Getting Started
 
