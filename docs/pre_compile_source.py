@@ -42,6 +42,12 @@ pur = fileio.read_file_to_string(purpose_path)
 pur = datatransform.break_into_lines(pur)
 post_str = datatransform.replace_between_tags(post_str, "purpose", pur, deleteTags=True)
 
+#add in changelog
+changelog_path = "../meta/changelog.txt"
+chlog = fileio.read_file_to_string(changelog_path)
+chlog = datatransform.break_into_lines(changelog_path)
+post_str = datatransform.replace_between_tags(post_str, "changelog", chlog, deleteTags=True)
+
 post_compile_path = "source/index.rst"
 #overwrite the index.rst now
 with open(post_compile_path, "w") as text_file:
