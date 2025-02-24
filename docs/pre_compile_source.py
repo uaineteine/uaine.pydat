@@ -45,7 +45,7 @@ post_str = datatransform.replace_between_tags(post_str, "purpose", pur, deleteTa
 #add in changelog
 changelog_path = "../meta/changelog.txt"
 chlog = fileio.read_file_to_string(changelog_path)
-chlog = datatransform.break_into_lines(changelog_path)
+chlog = datatransform.break_into_lines(chlog)
 post_str = datatransform.replace_between_tags(post_str, "changelog", chlog, deleteTags=True)
 
 post_compile_path = "source/index.rst"
