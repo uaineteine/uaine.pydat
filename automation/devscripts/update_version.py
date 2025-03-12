@@ -4,6 +4,8 @@ def update_version(file_path, current_version, new_version):
     with open(file_path, 'r') as file:
         content = file.read()
 
+    # Strip newlines and whitespace from current_version
+    current_version = current_version.strip()
     content = content.replace(current_version, new_version)
 
     with open(file_path, 'w') as file:
