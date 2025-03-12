@@ -1,4 +1,11 @@
+Version 1.0.2
+^^^^^^^^^^^^^
+
+* Added Bitgen Features:
+  - `generate_random_uuid`: Generates a random UUID (Universally Unique Identifier) using UUID version 4, with dashes removed.
+  - `generate_custom_uuid`: Generates a random UUID using UUID version 4, formatted with a specified marker. The default marker is a dash ('-'), but it can be customized.
+
 Version 1.0.1
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 * First full release of package

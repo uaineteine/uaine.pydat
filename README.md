@@ -2,7 +2,7 @@
 
 A python package to assist in data and database handling.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI Downloads](https://static.pepy.tech/badge/uainepydat)](https://pepy.tech/projects/uainepydat) ![Version 1.0.1](https://img.shields.io/badge/version-1.0.1-brightgreen)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI Downloads](https://static.pepy.tech/badge/uainepydat)](https://pepy.tech/projects/uainepydat) ![Version 1.0.2](https://img.shields.io/badge/version-1.0.2-brightgreen)
 
 -Daniel Stamer-Squair 
 
@@ -25,7 +25,7 @@ DEVELOPMENT:
 ## Requirements
 
 1. **Python**
-2. **requests**: This library is used to send HTTP requests to the ArXiv API.
+2. **requests**: This library is used to send HTTP requests.
 3. **pyreadstat**: This library is used for most read and writing of dataframes.
 4. **pandas**: This library is used to store and manipulate memory held data.
 5. **duckdb**: This library is used to create duck db requests and queries from its metadata tables
