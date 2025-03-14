@@ -1,6 +1,13 @@
 Version 1.1
 ^^^^^^^^^^^^^
 * Added new generic functions for duck database to output tables to files
+* Expansion of systeminformation module to feedback:
+  - CPU usage
+  - System uptime
+  - System information
+  - Network stats
+  - Top processes
+* New function in data transform with new function to keep alphabetical characters only
 
 Version 1.0.2
 ^^^^^^^^^^^^^
