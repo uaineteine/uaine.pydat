@@ -1,6 +1,9 @@
 import shutil
 import psutil
 import pandas as pd
+import time
+import re
+from uainepydat import datatransform
 
 def gather_free_space_in_drive(drive: str) -> float:
     """
@@ -12,6 +15,7 @@ def gather_free_space_in_drive(drive: str) -> float:
     Returns:
     float: The free space in bytes.
     """
+    print(drive)
     if len(drive) == 1:
         total, used, free = shutil.disk_usage(drive + ":\\")
     else:
@@ -47,13 +51,27 @@ def list_drive_spaces() -> pd.DataFrame:
     pd.DataFrame: A DataFrame with the drive names and their free space in gigabytes (GB).
     """
     df = pd.DataFrame(list_drives(), columns=["drive"])
+    #df["drive"] = df["drive"].apply(datatransform.keep_only_letters)
+    #print(df)
     df["space_free_gb"] = df["drive"].apply(free_gb_in_drive)
     return df
 
-def get_largest_drive():
+def get_largest_drive() -> dict[str, any]:
+    """
+    Identifies and returns information about the drive with the most free space.
+    
+    The function finds the drive with the maximum available free space and returns
+    its information with only the letters kept in the drive name.
+    
+    Returns:
+        dict[str, any]: Dictionary containing information about the drive with
+        the most free space, with the drive name containing only letters.
+    """
+    # Get list of all drives with their space information
     df = list_drive_spaces()
+    
+    # Find the index of the drive with maximum free space
     index = df["space_free_gb"].idxmax()
-    return df.loc[index]
 
 def get_free_ram_in_gb() -> float:
     """
@@ -111,6 +129,174 @@ def get_installed_ram_gb() -> int:
     ram = ram / (1024 * 1024 * 1024)  # convert to GB
     return round(ram)
 
-#example executions
-#print(systatus.free_gb_in_drive("C"))
-#print(systatus.list_drives())
+def get_cpu_usage_percent() -> float:
+    """
+    Get the current CPU usage as a percentage.
+
+    Returns:
+        float: Current CPU usage percentage.
+    """
+    return psutil.cpu_percent(interval=1)
+
+def get_per_cpu_usage_percent() -> list[float]:
+    """
+    Get CPU usage percentage for each individual CPU core.
+
+    Returns:
+        list[float]: List of CPU usage percentages for each core.
+    """
+    return psutil.cpu_percent(interval=1, percpu=True)
+
+def get_system_uptime() -> float:
+    """
+    Get the system uptime in seconds.
+
+    Returns:
+        float: System uptime in seconds.
+    """
+    return psutil.boot_time()
+
+def get_formatted_uptime() -> str:
+    """
+    Get the system uptime formatted as days, hours, minutes, seconds.
+
+    Returns:
+        str: Formatted uptime string.
+    """
+    uptime_seconds = time.time() - psutil.boot_time()
+    days, remainder = divmod(uptime_seconds, 86400)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return f"{int(days)}d {int(hours)}h {int(minutes)}m {int(seconds)}s"
+
+def get_battery_info() -> dict:
+    """
+    Get information about the system battery.
+
+    Returns:
+        dict: Dictionary containing battery percentage, time left, and power plugged status.
+              Returns None if no battery is present.
+    """
+    if not hasattr(psutil, "sensors_battery") or psutil.sensors_battery() is None:
+        return None
+    
+    battery = psutil.sensors_battery()
+    time_left = battery.secsleft
+    
+    # Convert seconds to hours and minutes if discharging
+    if time_left != psutil.POWER_TIME_UNLIMITED and time_left != psutil.POWER_TIME_UNKNOWN:
+        hours, remainder = divmod(time_left, 3600)
+        minutes, _ = divmod(remainder, 60)
+        time_str = f"{int(hours)}h {int(minutes)}m"
+    else:
+        time_str = "Unknown" if time_left == psutil.POWER_TIME_UNKNOWN else "Unlimited"
+    
+    return {
+        "percent": battery.percent,
+        "time_left": time_str,
+        "power_plugged": battery.power_plugged
+    }
+
+def get_network_stats() -> pd.DataFrame:
+    """
+    Get statistics for all network interfaces.
+
+    Returns:
+        pd.DataFrame: DataFrame with network interface statistics.
+    """
+    net_io = psutil.net_io_counters(pernic=True)
+    stats = []
+    
+    for interface, data in net_io.items():
+        stats.append({
+            "interface": interface,
+            "bytes_sent": data.bytes_sent,
+            "bytes_recv": data.bytes_recv,
+            "packets_sent": data.packets_sent,
+            "packets_recv": data.packets_recv,
+            "mb_sent": round(data.bytes_sent / (1024 * 1024), 2),
+            "mb_recv": round(data.bytes_recv / (1024 * 1024), 2)
+        })
+    
+    return pd.DataFrame(stats)
+
+def get_top_processes(n=5) -> pd.DataFrame:
+    """
+    Get the top n processes by memory usage.
+
+    Parameters:
+        n (int): Number of processes to return. Default is 5.
+
+    Returns:
+        pd.DataFrame: DataFrame with top processes information.
+    """
+    processes = []
+    
+    for proc in psutil.process_iter(['pid', 'name', 'memory_percent', 'cpu_percent']):
+        try:
+            processes.append({
+                'pid': proc.info['pid'],
+                'name': proc.info['name'],
+                'memory_percent': proc.info['memory_percent'],
+                'cpu_percent': proc.info['cpu_percent']
+            })
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    
+    df = pd.DataFrame(processes)
+    return df.nlargest(n, 'memory_percent')
+
+def get_system_info() -> dict:
+    """
+    Get general system information.
+
+    Returns:
+        dict: Dictionary containing OS, hostname, and platform information.
+    """
+    import platform
+    import socket
+    
+    return {
+        "os": platform.system(),
+        "os_version": platform.version(),
+        "hostname": socket.gethostname(),
+        "architecture": platform.architecture()[0],
+        "processor": platform.processor(),
+        "python_version": platform.python_version()
+    }
+
+# Example executions:
+if __name__ == "__main__":
+    # Drive space examples
+    print(free_gb_in_drive("C"))
+    print(list_drives())
+    print("Drive with most free space:", get_largest_drive())
+    
+    # RAM examples
+    print("Free RAM (GB):", get_free_ram_in_gb())
+    print("Total installed RAM (GB):", get_installed_ram_gb())
+    
+    # CPU examples
+    print("Physical CPU cores:", get_physical_cores())
+    print("Virtual CPU cores:", get_number_virtual_cores())
+    print("Current CPU usage (%):", get_cpu_usage_percent())
+    print("Per-core CPU usage (%):", get_per_cpu_usage_percent())
+    
+    # System info examples
+    print("System uptime:", get_formatted_uptime())
+    print("System information:", get_system_info())
+    
+    # Battery info (if available)
+    battery = get_battery_info()
+    if battery:
+        print("Battery percentage:", battery["percent"])
+        print("Battery time left:", battery["time_left"])
+        print("Power plugged in:", battery["power_plugged"])
+    
+    # Network stats
+    print("Network statistics:")
+    print(get_network_stats())
+    
+    # Process monitoring
+    print("Top 3 processes by memory usage:")
+    print(get_top_processes(3))
