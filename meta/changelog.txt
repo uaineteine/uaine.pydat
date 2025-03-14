@@ -1,3 +1,7 @@
+Version 1.1
+^^^^^^^^^^^^^
+* Added new generic functions for duck database to output tables to files
+
 Version 1.0.2
 ^^^^^^^^^^^^^
 
