@@ -1,3 +1,5 @@
+import re
+
 def replace_between_tags(content: str, tag_name: str, new_lines: list[str], deleteTags=False) -> str:
     start_tag = f'<{tag_name}>'
     end_tag = f'</{tag_name}>'
@@ -55,4 +57,14 @@ def add_suffix(string: str, suffix: str) -> str:
     """
     return string + suffix
 
-import numpy as np
+def keep_only_letters(input_string: str) -> str:
+    """
+    Filter a string to keep only alphabetic characters (letters).
+    
+    Args:
+        input_string (str): The input string to filter
+        
+    Returns:
+        str: String containing only letters from the input
+    """
+    return re.sub(r'[^a-zA-Z]', '', input_string)
