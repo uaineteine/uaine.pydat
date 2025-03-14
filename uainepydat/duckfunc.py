@@ -104,3 +104,53 @@ def getDuckVersion(con) -> str:
     """
     df = con.sql("SELECT version() AS version").df()
     return df['version'][0]
+
+def get_table_as_df(con, db_name: str, table_name: str) -> DataFrame:
+    """
+    Query a table from the specified database and return it as a pandas DataFrame.
+    
+    Args:
+        con: Database connection object
+        db_name (str): Name of the database
+        table_name (str): Name of the table
+        
+    Returns:
+        DataFrame: The table contents as a pandas DataFrame, or None if the table doesn't exist
+    """
+    # Check if the table exists
+    if not does_table_exist(con, db_name, table_name):
+        print(f"Table {db_name}.{table_name} does not exist.")
+        return None
+    
+    # Query the table
+    query = f"SELECT * FROM {db_name}.{table_name}"
+    return con.sql(query).df()
+
+def save_from_db(con, db_name: str, table_name: str, output_path: str, output_format: str) -> None:
+    """
+    Query a table from the specified database and save it to the given output path in the specified format.
+
+    Args:
+        con: Database connection object
+        db_name (str): Name of the database
+        table_name (str): Name of the table
+        output_path (str): Path to save the output file
+        output_format (str): Format to save the file ('csv' or 'parquet')
+    """
+    # Get the table as a DataFrame
+    df = get_table_as_df(con, db_name, table_name)
+    
+    if df is None:
+        print(f"Skipping export of {db_name}.{table_name}.")
+        return
+
+    # Save as parquet or csv
+    if output_format == 'parquet':
+        df.to_parquet(output_path)
+    elif output_format == 'csv':
+        df.to_csv(output_path, index=False)
+    else:
+        print(f"Unsupported format: {output_format}. Use 'csv' or 'parquet'.")
+        return
+
+    print(f"Dumped {db_name}.{table_name} to {output_path}")
