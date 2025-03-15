@@ -378,7 +378,7 @@ def gen_dataframe(
 
 def gen_sample_dataframe(rows: int, include_id: bool = True) -> pd.DataFrame:
     """
-    Generate a sample pandas DataFrame with specified columns.
+    Generate a sample pandas DataFrame from various column types.
     """
     # Generate a sample dataframe
     sample_df = gen_dataframe(
