@@ -127,7 +127,7 @@ def get_table_as_df(con, db_name: str, table_name: str) -> DataFrame:
     query = f"SELECT * FROM {db_name}.{table_name}"
     return con.sql(query).df()
 
-def save_from_db(con, db_name: str, table_name: str, output_path: str) -> None:
+def save_from_db(con, db_name: str, table_name: str, output_path: str) -> bool:
     """
     Query a table from the specified database and save it to the given output path.
     The output format is determined from the file extension of the output path.
@@ -137,15 +137,19 @@ def save_from_db(con, db_name: str, table_name: str, output_path: str) -> None:
         db_name (str): Name of the database
         table_name (str): Name of the table
         output_path (str): Path to save the output file (extension determines format)
+        
+    Returns:
+        bool: True if the table existed and was saved, False otherwise
     """
     # Get the table as a DataFrame
     df = get_table_as_df(con, db_name, table_name)
     
     if df is None:
         print(f"Skipping export of {db_name}.{table_name}.")
-        return
+        return False
 
     # Determine format from output_path extension and use dataio to write file
     dataio.write_flat_df(df, output_path)
     
     print(f"Dumped {db_name}.{table_name} to {output_path}")
+    return True
