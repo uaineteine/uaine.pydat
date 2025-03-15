@@ -7,7 +7,7 @@ Version 1.1
   - System information
   - Network stats
   - Top processes
-* New function in data transform with new function to keep alphabetical characters only
+* New function in data clean to keep alphabetical characters only
 
 Version 1.0.2
 ^^^^^^^^^^^^^
