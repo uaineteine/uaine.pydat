@@ -266,37 +266,37 @@ def get_system_info() -> dict:
     }
 
 # Example executions:
-if __name__ == "__main__":
-    # Drive space examples
-    print(free_gb_in_drive("C"))
-    print(list_drives())
-    print("Drive with most free space:", get_largest_drive())
+# if __name__ == "__main__":
+#     # Drive space examples
+#     print(free_gb_in_drive("C"))
+#     print(list_drives())
+#     print("Drive with most free space:", get_largest_drive())
     
-    # RAM examples
-    print("Free RAM (GB):", get_free_ram_in_gb())
-    print("Total installed RAM (GB):", get_installed_ram_gb())
+#     # RAM examples
+#     print("Free RAM (GB):", get_free_ram_in_gb())
+#     print("Total installed RAM (GB):", get_installed_ram_gb())
     
-    # CPU examples
-    print("Physical CPU cores:", get_physical_cores())
-    print("Virtual CPU cores:", get_number_virtual_cores())
-    print("Current CPU usage (%):", get_cpu_usage_percent())
-    print("Per-core CPU usage (%):", get_per_cpu_usage_percent())
+#     # CPU examples
+#     print("Physical CPU cores:", get_physical_cores())
+#     print("Virtual CPU cores:", get_number_virtual_cores())
+#     print("Current CPU usage (%):", get_cpu_usage_percent())
+#     print("Per-core CPU usage (%):", get_per_cpu_usage_percent())
     
-    # System info examples
-    print("System uptime:", get_formatted_uptime())
-    print("System information:", get_system_info())
+#     # System info examples
+#     print("System uptime:", get_formatted_uptime())
+#     print("System information:", get_system_info())
     
-    # Battery info (if available)
-    battery = get_battery_info()
-    if battery:
-        print("Battery percentage:", battery["percent"])
-        print("Battery time left:", battery["time_left"])
-        print("Power plugged in:", battery["power_plugged"])
+#     # Battery info (if available)
+#     battery = get_battery_info()
+#     if battery:
+#         print("Battery percentage:", battery["percent"])
+#         print("Battery time left:", battery["time_left"])
+#         print("Power plugged in:", battery["power_plugged"])
     
-    # Network stats
-    print("Network statistics:")
-    print(get_network_stats())
+#     # Network stats
+#     print("Network statistics:")
+#     print(get_network_stats())
     
-    # Process monitoring
-    print("Top 3 processes by memory usage:")
-    print(get_top_processes(3))
+#     # Process monitoring
+#     print("Top 3 processes by memory usage:")
+#     print(get_top_processes(3))
