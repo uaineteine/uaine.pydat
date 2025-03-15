@@ -32,3 +32,7 @@ DEVELOPMENT:
 6. **wheel**: This is for making the package yourself
 7. **twine**: This is for making the package yourself
 8. **psutil**: This is for checking process availability of
+
+# Changelog
+
+See the full version history in the [changelog](meta/changelog.txt).
