@@ -1,5 +1,3 @@
-import re
-
 def replace_between_tags(content: str, tag_name: str, new_lines: list[str], deleteTags=False) -> str:
     start_tag = f'<{tag_name}>'
     end_tag = f'</{tag_name}>'
@@ -56,23 +54,3 @@ def add_suffix(string: str, suffix: str) -> str:
     str: The string with the suffix added.
     """
     return string + suffix
-
-def keep_only_letters(input_string: str) -> str:
-    """
-    Filter a string to keep only alphabetic characters (letters).
-    
-    Args:
-        input_string (str): The input string to filter
-        
-    Returns:
-        str: String containing only letters from the input
-    """
-    return re.sub(r'[^a-zA-Z]', '', input_string)
-
-#Execution test
-# if __name__ == "__main__":
-#     print(keep_only_letters("Hello, World!"))
-#     print(keep_only_letters("12345"))
-#     print(keep_only_letters("Hello, World! 12345"))
-#     print(keep_only_letters("Hello, World! 12345"))
-#     print(keep_only_letters("C:/")) 
