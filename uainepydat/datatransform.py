@@ -68,3 +68,11 @@ def keep_only_letters(input_string: str) -> str:
         str: String containing only letters from the input
     """
     return re.sub(r'[^a-zA-Z]', '', input_string)
+
+#Execution test
+# if __name__ == "__main__":
+#     print(keep_only_letters("Hello, World!"))
+#     print(keep_only_letters("12345"))
+#     print(keep_only_letters("Hello, World! 12345"))
+#     print(keep_only_letters("Hello, World! 12345"))
+#     print(keep_only_letters("C:/")) 
