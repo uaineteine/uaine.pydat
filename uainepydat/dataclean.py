@@ -1,9 +1,10 @@
-from pandas import DataFrame
 import re
 import unicodedata
 import string
+import pandas as pd
+import numpy as np
 
-def clean_whitespace_in_df(df: DataFrame) -> DataFrame:
+def clean_whitespace_in_df(df: pd.DataFrame) -> pd.DataFrame:
     """
     Remove leading and trailing whitespace from string columns in a DataFrame.
 
@@ -56,7 +57,7 @@ def normalize_text(input_string: str) -> str:
     text = unicodedata.normalize('NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
     return text
 
-def remove_empty_rows(df: DataFrame) -> DataFrame:
+def remove_empty_rows(df: pd.DataFrame) -> pd.DataFrame:
     """
     Remove rows where all values are empty or NaN.
     
@@ -68,7 +69,7 @@ def remove_empty_rows(df: DataFrame) -> DataFrame:
     """
     return df.dropna(how='all')
 
-def convert_to_numeric(df: DataFrame, columns: list) -> DataFrame:
+def convert_to_numeric(df: pd.DataFrame, columns: list) -> pd.DataFrame:
     """
     Convert specified columns to numeric type, with errors coerced to NaN.
     
@@ -85,7 +86,7 @@ def convert_to_numeric(df: DataFrame, columns: list) -> DataFrame:
             df[col] = pd.to_numeric(df[col], errors='coerce')
     return df
 
-def check_column_completeness(df: DataFrame) -> dict:
+def check_column_completeness(df: pd.DataFrame) -> dict:
     """
     Calculate the percentage of non-missing values for each column.
     
@@ -96,7 +97,6 @@ def check_column_completeness(df: DataFrame) -> dict:
         dict: Dictionary mapping column names to completeness percentage
     """
     return {col: (1 - df[col].isna().mean()) * 100 for col in df.columns}
-    
 #Execution test
 # if __name__ == "__main__":
 #     print(keep_only_letters("Hello, World!"))
@@ -104,3 +104,61 @@ def check_column_completeness(df: DataFrame) -> dict:
 #     print(keep_only_letters("Hello, World! 12345"))
 #     print(keep_only_letters("Hello, World! 12345"))
 #     print(keep_only_letters("C:/")) 
+# Test string manipulation functions
+    # print("=== String manipulation functions ===")
+    # print(f"keep_only_letters: {keep_only_letters('Hello, World!')}")
+    # print(f"keep_only_letters: {keep_only_letters('12345')}")
+    # print(f"keep_only_letters: {keep_only_letters('Hello, World! 12345')}")
+    # print(f"keep_alphanumeric: {keep_alphanumeric('Hello, World! 12345')}")
+    # print(f"keep_alphanumeric: {keep_alphanumeric('Special @#$% chars')}")
+    # print(f"normalize_text: {normalize_text('Héllò Wörld!')}")
+    # print(f"normalize_text: {normalize_text('UPPER case TEXT')}")
+    
+    # # Create sample DataFrame for testing DataFrame functions
+    # print("\n=== DataFrame functions ===")
+    # df = pd.DataFrame({
+    #     'A': ['  text with spaces  ', 'more  text', '  leading/trailing  '],
+    #     'B': [1, 2, np.nan],
+    #     'C': [np.nan, np.nan, np.nan],
+    #     'D': ['1.5', '2,000', 'not-a-number']
+    # })
+    
+    # print("\nOriginal DataFrame:")
+    # print(df)
+    
+    # # Test clean_whitespace_in_df
+    # df_clean = clean_whitespace_in_df(df)
+    # print("\nAfter clean_whitespace_in_df:")
+    # print(df_clean)
+    
+    # # Test remove_empty_rows
+    # df_with_empty = pd.DataFrame({
+    #     'A': [1, np.nan, 3],
+    #     'B': [4, np.nan, 6],
+    #     'C': [7, np.nan, 9]
+    # })
+    # df_no_empty = remove_empty_rows(df_with_empty)
+    # print("\nBefore remove_empty_rows:")
+    # print(df_with_empty)
+    # print("\nAfter remove_empty_rows:")
+    # print(df_no_empty)
+    
+    # # Test convert_to_numeric
+    # # Fix the function to use pd_to_numeric instead of pd.to_numeric
+    # def convert_to_numeric_fixed(df: pd.DataFrame, columns: list) -> pd.DataFrame:
+    #     df = df.copy()
+    #     for col in columns:
+    #         if col in df.columns:
+    #             df[col] = pd.to_numeric(df[col], errors='coerce')
+    #     return df
+    
+    # df_numeric = convert_to_numeric_fixed(df, ['B', 'D'])
+    # print("\nAfter convert_to_numeric:")
+    # print(df_numeric)
+    
+    # # Test check_column_completeness
+    # completeness = check_column_completeness(df)
+    # print("\nColumn completeness:")
+    # for col, percent in completeness.items():
+    #     print(f"{col}: {percent:.1f}%")
+
