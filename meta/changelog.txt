@@ -14,6 +14,14 @@ Version 1.1
   - `remove_empty_rows`: Removes rows where all values are empty or NaN
   - `convert_to_numeric`: Converts specified columns to numeric type
   - `check_column_completeness`: Calculates the percentage of non-missing values for each column
+* Added new datagen module for synthetic data generation:
+  - `gen_string_column`: Generates random string data with patterns and customization
+  - `gen_numeric_column`: Generates numeric data with various distributions
+  - `gen_date_column`: Generates date data with customizable ranges and formats
+  - `gen_categorical_column`: Generates categorical data with optional weighted distributions
+  - `gen_bool_column`: Generates boolean data with custom labels
+  - `gen_dataframe`: Creates complete dataframes with customizable columns
+  - `gen_sample_dataframe`: Generates ready-to-use test dataframes with common column types
 
 Version 1.0.2
 ^^^^^^^^^^^^^

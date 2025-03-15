@@ -396,17 +396,17 @@ def gen_sample_dataframe(rows: int, include_id: bool = True) -> pd.DataFrame:
     return sample_df
 
 # Example usage (commented out)
-if __name__ == "__main__":
-    # Generate a sample dataframe
-    sample_df = gen_sample_dataframe(1000, include_id=True)
+# if __name__ == "__main__":
+#     # Generate a sample dataframe
+#     sample_df = gen_sample_dataframe(1000, include_id=True)
     
-    # Display the dataframe
-    print(sample_df.head(10))
+#     # Display the dataframe
+#     print(sample_df.head(10))
     
-    # Show basic statistics
-    print("\nDataframe summary statistics:")
-    print(sample_df.describe(include='all'))
+#     # Show basic statistics
+#     print("\nDataframe summary statistics:")
+#     print(sample_df.describe(include='all'))
     
-    # Count null values
-    print("\nNull values per column:")
-    print(sample_df.isnull().sum())
+#     # Count null values
+#     print("\nNull values per column:")
+#     print(sample_df.isnull().sum())
