@@ -6,7 +6,7 @@ def read_requirements():
 
 setup(
     name='uainepydat',
-    version='1.0.2',
+    version='1.1',
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
     description='A python package to assist in data and database handling',
@@ -16,7 +16,7 @@ setup(
     packages=["uainepydat"],
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.9',

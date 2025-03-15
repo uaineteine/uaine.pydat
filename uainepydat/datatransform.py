@@ -54,5 +54,3 @@ def add_suffix(string: str, suffix: str) -> str:
     str: The string with the suffix added.
     """
     return string + suffix
-
-import numpy as np
