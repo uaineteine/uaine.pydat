@@ -7,7 +7,13 @@ Version 1.1
   - System information
   - Network stats
   - Top processes
-* New function in data clean to keep alphabetical characters only
+* Enhanced dataclean module with:
+  - `keep_only_letters`: Filters strings to keep only alphabetical characters
+  - `keep_alphanumeric`: Filters strings to keep only alphanumeric characters
+  - `normalize_text`: Converts text to lowercase and removes accents
+  - `remove_empty_rows`: Removes rows where all values are empty or NaN
+  - `convert_to_numeric`: Converts specified columns to numeric type
+  - `check_column_completeness`: Calculates the percentage of non-missing values for each column
 
 Version 1.0.2
 ^^^^^^^^^^^^^
