@@ -1,3 +1,13 @@
+Version 1.1.1
+^^^^^^^^^^^^^
+* Enhanced datatransform module with:
+  - `json_to_dataframe`: Converts JSON data into pandas DataFrames with support for:
+    - Multiple input types (JSON strings, Python dicts/lists, file paths)
+    - Custom orientation options for structured data
+    - Normalization of nested JSON structures
+    - Handling of both single objects and arrays of records
+    - Customizable encoding for file reading
+
 Version 1.1
 ^^^^^^^^^^^^^
 * Added new generic functions for duck database to output tables to files
