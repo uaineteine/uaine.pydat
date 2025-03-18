@@ -10,6 +10,9 @@ Version 1.1.1
 * Fixed systeminfo module with:
   - Reworked drive listing to continue functioning when some drives are inaccessible
   - Improved reliability of `get_largest_drive()` function
+* Improved fileio module with:
+  - Enhanced `remove_directory()` to return boolean success/failure status instead of only printing messages
+  - Added proper type hints and improved documentation for key functions
 
 Version 1.1
 ^^^^^^^^^^^^^

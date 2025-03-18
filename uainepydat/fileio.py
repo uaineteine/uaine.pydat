@@ -43,14 +43,43 @@ def check_folder_in_filepath(path):
             #print(f"The path '{path}' does not appear to have a file extension.")
             return True
 
-def remove_directory(dir_path):
+def remove_directory(dir_path: str) -> bool:
+    """
+    Removes a directory at the specified path.
+    
+    Attempts to remove the directory and prints the result. If an error occurs
+    during removal, the exception is caught and an error message is printed.
+    
+    Parameters:
+        dir_path (str): The path to the directory to be removed.
+        
+    Returns:
+        bool: True if directory was successfully removed, False otherwise.
+        
+    Raises:
+        No exceptions are raised as they are caught and printed internally.
+    """
     try:
         os.rmdir(dir_path)
-        print(f"Remved directory: {dir_path}")
+        print(f"Removed directory: {dir_path}")
+        return True
     except Exception as e:
         print(f"Error removing directory {dir_path}: {e}")
+        return False
         
-def create_filepath_dirs(path):
+def create_filepath_dirs(path: str) -> None:
+    """
+    Creates all directories needed for a given file path.
+    
+    If the path contains folders, this function creates all necessary 
+    directories in the path if they don't already exist.
+    
+    Parameters:
+        path (str): The file path for which to create directories.
+        
+    Returns:
+        None
+    """
     if check_folder_in_filepath(path):
         path = os.path.dirname(path)
         os.makedirs(path, exist_ok=True)
