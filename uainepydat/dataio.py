@@ -1,7 +1,10 @@
 import os
 import configparser
 import pandas as pd
+import json
+from io import StringIO
 from uainepydat import fileio
+from uainepydat import datatransform
 
 def read_sas_metadata(filepath: str, encoding: str = "latin-1") -> dict:
     """
@@ -58,8 +61,12 @@ def write_flat_df(df: pd.DataFrame, filepath: str, index: bool = False):
         df.to_parquet(filepath, index=index)
     elif format == "psv":
         df.to_csv(filepath, sep="|", index=index)
+    elif format == "json":
+        write_json_file(df, filepath, index=index)
+    elif format == "xml":
+        write_xml_file(df, filepath, index=index)
     else:
-        raise ValueError
+        raise ValueError(f"Unsupported file extension {format}")
 
 def read_flat_df(filepath: str) -> pd.DataFrame:
     """
@@ -85,6 +92,10 @@ def read_flat_df(filepath: str) -> pd.DataFrame:
         return read_flat_psv(filepath)
     elif format == "sas7bdat":
         return pd.read_sas(filepath)
+    elif format == "json":
+        return read_json_file(filepath)
+    elif format == "xml":
+        return read_xml_file(filepath)
     else:
         raise ValueError(f"Unsupported file extension {format}")
     return None
@@ -181,3 +192,90 @@ def df_memory_usage(df: pd.DataFrame) -> float:
     # Sum up the memory usage of all columns
     total_memory_usage = memory_usage.sum()
     return total_memory_usage
+
+def read_json_file(filepath: str, orient: str = 'records', normalize: bool = False, 
+                  record_path: str = None, meta: list = None, encoding: str = 'utf-8') -> pd.DataFrame:
+    """
+    Read a JSON file into a DataFrame.
+
+    Args:
+        filepath (str): The path to the JSON file.
+        orient (str): The format of the JSON structure. Default is 'records'.
+        normalize (bool): Whether to normalize nested JSON data. Default is False.
+        record_path (str or list): Path to the records in nested JSON. Default is None.
+        meta (list): Fields to use as metadata for each record. Default is None.
+        encoding (str): The file encoding. Default is 'utf-8'.
+
+    Returns:
+        pd.DataFrame: The DataFrame read from the JSON file.
+    """
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"File {filepath} does not exist")
+    
+    # Use the existing json_to_dataframe function from datatransform module
+    return datatransform.json_to_dataframe(
+        filepath, orient=orient, normalize=normalize, 
+        record_path=record_path, meta=meta, encoding=encoding
+    )
+
+def write_json_file(df: pd.DataFrame, filepath: str, orient: str = 'records', 
+                   index: bool = False, indent: int = 4) -> None:
+    """
+    Write a DataFrame to a JSON file.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to be written.
+        filepath (str): The path where the JSON file will be saved.
+        orient (str): The format of the JSON structure. Default is 'records'.
+        index (bool): Whether to include the index in the JSON. Default is False.
+        indent (int): The indentation level for the JSON file. Default is 4.
+    
+    Returns:
+        None
+    """
+    df.to_json(filepath, orient=orient, indent=indent, index=index)
+    
+def read_xml_file(filepath: str, xpath: str = './*', attrs_only: bool = False, 
+                 encoding: str = 'utf-8') -> pd.DataFrame:
+    """
+    Read an XML file into a DataFrame.
+
+    Args:
+        filepath (str): The path to the XML file.
+        xpath (str): XPath string to parse specific nodes. Default is './*'.
+        attrs_only (bool): Parse only the attributes, not the child elements. Default is False.
+        encoding (str): The file encoding. Default is 'utf-8'.
+
+    Returns:
+        pd.DataFrame: The DataFrame read from the XML file.
+    """
+    try:
+        return pd.read_xml(filepath, xpath=xpath, attrs_only=attrs_only, encoding=encoding)
+    except ImportError:
+        raise ImportError("pandas version with XML support required. Please update pandas.")
+    except Exception as e:
+        raise ValueError(f"Error reading XML file: {e}")
+
+def write_xml_file(df: pd.DataFrame, filepath: str, index: bool = False, 
+                  root_name: str = 'data', row_name: str = 'row',
+                  attr_cols: list = None) -> None:
+    """
+    Write a DataFrame to an XML file.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to be written.
+        filepath (str): The path where the XML file will be saved.
+        index (bool): Whether to include the index in the XML. Default is False.
+        root_name (str): The name of the root element. Default is 'data'.
+        row_name (str): The name of each row element. Default is 'row'.
+        attr_cols (list): List of columns to write as attributes, not elements. Default is None.
+
+    Returns:
+        None
+    """
+    try:
+        df.to_xml(filepath, index=index, root_name=root_name, row_name=row_name, attr_cols=attr_cols)
+    except ImportError:
+        raise ImportError("pandas version with XML support required. Please update pandas.")
+    except Exception as e:
+        raise ValueError(f"Error writing XML file: {e}")
