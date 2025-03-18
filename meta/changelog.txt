@@ -7,6 +7,9 @@ Version 1.1.1
     - Normalization of nested JSON structures
     - Handling of both single objects and arrays of records
     - Customizable encoding for file reading
+* Fixed systeminfo module with:
+  - Reworked drive listing to continue functioning when some drives are inaccessible
+  - Improved reliability of `get_largest_drive()` function
 
 Version 1.1
 ^^^^^^^^^^^^^
