@@ -1,49 +1,79 @@
-Version 1.1.1
+Version 1.2
 ^^^^^^^^^^^^^
 * Enhanced datatransform module with:
+
   - `json_to_dataframe`: Converts JSON data into pandas DataFrames with support for:
+
     - Multiple input types (JSON strings, Python dicts/lists, file paths)
+
     - Custom orientation options for structured data
+
     - Normalization of nested JSON structures
+
     - Handling of both single objects and arrays of records
+
     - Customizable encoding for file reading
 * Fixed systeminfo module with:
+
   - Reworked drive listing to continue functioning when some drives are inaccessible
+
   - Improved reliability of `get_largest_drive()` function
 * Improved fileio module with:
+
   - Enhanced `remove_directory()` to return boolean success/failure status instead of only printing messages
+
   - Added proper type hints and improved documentation for key functions
 
 Version 1.1
 ^^^^^^^^^^^^^
 * Added new generic functions for duck database to output tables to files
 * Expansion of systeminformation module to feedback:
+
   - CPU usage
+
   - System uptime
+
   - System information
+
   - Network stats
+
   - Top processes
 * Enhanced dataclean module with:
+
   - `keep_only_letters`: Filters strings to keep only alphabetical characters
+
   - `keep_alphanumeric`: Filters strings to keep only alphanumeric characters
+
   - `normalize_text`: Converts text to lowercase and removes accents
+
   - `remove_empty_rows`: Removes rows where all values are empty or NaN
+
   - `convert_to_numeric`: Converts specified columns to numeric type
+
   - `check_column_completeness`: Calculates the percentage of non-missing values for each column
 * Added new datagen module for synthetic data generation:
+
   - `gen_string_column`: Generates random string data with patterns and customization
+
   - `gen_numeric_column`: Generates numeric data with various distributions
+
   - `gen_date_column`: Generates date data with customizable ranges and formats
+
   - `gen_categorical_column`: Generates categorical data with optional weighted distributions
+
   - `gen_bool_column`: Generates boolean data with custom labels
+
   - `gen_dataframe`: Creates complete dataframes with customizable columns
+
   - `gen_sample_dataframe`: Generates ready-to-use test dataframes with common column types
 
 Version 1.0.2
 ^^^^^^^^^^^^^
 
 * Added Bitgen Features:
+
   - `generate_random_uuid`: Generates a random UUID (Universally Unique Identifier) using UUID version 4, with dashes removed.
+  
   - `generate_custom_uuid`: Generates a random UUID using UUID version 4, formatted with a specified marker. The default marker is a dash ('-'), but it can be customized.
 
 Version 1.0.1
