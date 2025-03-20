@@ -1,5 +1,3 @@
-Uaine.Pydat
-
 A Python package that streamlines data handling, processing, and database operations through a collection of utility functions and tools.
 
 Uaine.Pydat provides a comprehensive toolkit for data scientists, analysts, and developers working with structured data. The package simplifies common data manipulation tasks while offering specialized functionality for file operations, data transformation, table cleaning, and database interactions.
