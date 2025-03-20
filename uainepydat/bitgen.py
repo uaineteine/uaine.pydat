@@ -47,7 +47,7 @@ def generate_custom_uuid(marker: str = '-') -> str:
     formatted with a specified marker.
 
     Parameters:
-    marker (str): The character to use as a separator in the UUID. Default is '-'.
+        marker (str): The character to use as a separator in the UUID. Default is '-'.
 
     Returns:
         str: A string representation of a random UUID with the specified marker.
