@@ -6,13 +6,13 @@ import numpy as np
 
 def clean_whitespace_in_df(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Remove leading and trailing whitespace from string columns in a DataFrame.
+    Remove leading and trailing whitespace from all string columns in a DataFrame.
 
     Parameters:
-    df (DataFrame): The input DataFrame.
+        df (DataFrame): The input DataFrame.
 
     Returns:
-    DataFrame: The DataFrame with leading and trailing whitespace removed from string columns.
+        DataFrame: Theinput DataFrame with leading and trailing whitespace removed from string columns.
     """
     df_cleaned = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df_cleaned
@@ -43,7 +43,7 @@ def keep_alphanumeric(input_string: str) -> str:
 
 def normalize_text(input_string: str) -> str:
     """
-    Normalize text by converting to lowercase and removing accents.
+    Normalise text by converting to lowercase and removing accents.
     
     Args:
         input_string (str): The input string to normalize
@@ -65,7 +65,7 @@ def remove_empty_rows(df: pd.DataFrame) -> pd.DataFrame:
         df (DataFrame): Input DataFrame
         
     Returns:
-        DataFrame: DataFrame with empty rows removed
+        DataFrame: The input DataFrame with all empty rows removed
     """
     return df.dropna(how='all')
 

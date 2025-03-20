@@ -3,34 +3,38 @@ import psutil
 import pandas as pd
 import time
 import re
-from uainepydat import datatransform
+from uainepydat import dataclean
 
 def gather_free_space_in_drive(drive: str) -> float:
     """
     Gather the free space in a specified drive.
 
     Parameters:
-    drive (str): The drive to check the free space of. If the drive is a single letter, it is assumed to be a Windows drive.
+        drive (str): The drive to check the free space of. If the drive is a single letter, it is assumed to be a Windows drive.
 
     Returns:
-    float: The free space in bytes.
+        float: The free space in bytes.
     """
-    print(drive)
-    if len(drive) == 1:
-        total, used, free = shutil.disk_usage(drive + ":\\")
-    else:
-        total, used, free = shutil.disk_usage(drive)
-    return free
+    #print(drive)
+    try:
+        if len(drive) == 1:
+            total, used, free = shutil.disk_usage(drive + ":\\")
+        else:
+            total, used, free = shutil.disk_usage(drive)
+        return free
+    except (OSError, FileNotFoundError):
+        print(f"Could not access drive: {drive}")
+        return 0
 
 def free_gb_in_drive(drive: str) -> float:
     """
     Calculate the free space in a specified drive in gigabytes (GB).
 
     Parameters:
-    drive (str): The drive to check the free space of.
+        drive (str): The drive to check the free space of.
 
     Returns:
-    float: The free space in gigabytes (GB).
+        float: The free space in gigabytes (GB).
     """
     return gather_free_space_in_drive(drive) / (1024 * 1024 * 1024)
 
@@ -39,7 +43,7 @@ def list_drives() -> list[str]:
     List all available drives on the system.
 
     Returns:
-    list[str]: A list of device names for all available drives.
+        list[str]: A list of device names for all available drives.
     """
     return [drive.device for drive in psutil.disk_partitions()]
 
@@ -48,13 +52,21 @@ def list_drive_spaces() -> pd.DataFrame:
     List all available drives and their free space in gigabytes (GB).
 
     Returns:
-    pd.DataFrame: A DataFrame with the drive names and their free space in gigabytes (GB).
+        pd.DataFrame: A DataFrame with the drive names and their free space in gigabytes (GB).
     """
-    df = pd.DataFrame(list_drives(), columns=["drive"])
-    #df["drive"] = df["drive"].apply(datatransform.keep_only_letters)
-    #print(df)
-    df["space_free_gb"] = df["drive"].apply(free_gb_in_drive)
-    return df
+    drives = list_drives()
+    results = []
+    
+    for drive in drives:
+        # Get the actual drive letter or path for accessibility check
+        clean_drive = dataclean.keep_only_letters(drive)
+        try:
+            space_free = free_gb_in_drive(drive)  # Use the original drive path
+            results.append({"drive": clean_drive, "space_free_gb": space_free})
+        except Exception as e:
+            print(f"Error getting space for {drive}: {e}")
+    
+    return pd.DataFrame(results)
 
 def get_largest_drive() -> dict[str, any]:
     """
@@ -72,6 +84,7 @@ def get_largest_drive() -> dict[str, any]:
     
     # Find the index of the drive with maximum free space
     index = df["space_free_gb"].idxmax()
+    return df.iloc[index]
 
 def get_free_ram_in_gb() -> float:
     """
@@ -266,11 +279,11 @@ def get_system_info() -> dict:
     }
 
 # Example executions:
-# if __name__ == "__main__":
-#     # Drive space examples
-#     print(free_gb_in_drive("C"))
-#     print(list_drives())
-#     print("Drive with most free space:", get_largest_drive())
+#if __name__ == "__main__":
+    # Drive space examples
+    #print(free_gb_in_drive("C"))
+    #print(list_drives())
+    #print("Drive with most free space:", get_largest_drive()["drive"])
     
 #     # RAM examples
 #     print("Free RAM (GB):", get_free_ram_in_gb())

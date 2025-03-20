@@ -5,3 +5,4 @@ duckdb
 wheel
 twine
 psutil
+lxml

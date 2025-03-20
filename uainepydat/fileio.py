@@ -43,14 +43,43 @@ def check_folder_in_filepath(path):
             #print(f"The path '{path}' does not appear to have a file extension.")
             return True
 
-def remove_directory(dir_path):
+def remove_directory(dir_path: str) -> bool:
+    """
+    Removes a directory at the specified path.
+    
+    Attempts to remove the directory and prints the result. If an error occurs
+    during removal, the exception is caught and an error message is printed.
+    
+    Parameters:
+        dir_path (str): The path to the directory to be removed.
+        
+    Returns:
+        bool: True if directory was successfully removed, False otherwise.
+        
+    Raises:
+        No exceptions are raised as they are caught and printed internally.
+    """
     try:
         os.rmdir(dir_path)
-        print(f"Remved directory: {dir_path}")
+        print(f"Removed directory: {dir_path}")
+        return True
     except Exception as e:
         print(f"Error removing directory {dir_path}: {e}")
+        return False
         
-def create_filepath_dirs(path):
+def create_filepath_dirs(path: str) -> None:
+    """
+    Creates all directories needed for a given file path.
+    
+    If the path contains folders, this function creates all necessary 
+    directories in the path if they don't already exist.
+    
+    Parameters:
+        path (str): The file path for which to create directories.
+        
+    Returns:
+        None
+    """
     if check_folder_in_filepath(path):
         path = os.path.dirname(path)
         os.makedirs(path, exist_ok=True)
@@ -79,10 +108,10 @@ def read_file_to_string(file_path: str) -> str:
     Read the string content from the specified file.
 
     Parameters:
-    file_path (str): The path to the file.
+        file_path (str): The path to the file.
 
     Returns:
-    str: The content of the file as a string.
+        str: The content of the file as a string.
     """
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
@@ -93,10 +122,10 @@ def read_file_to_bytes(file_path: str) -> bytes:
     Read the string content from the specified file and convert it to bytes using UTF-8 encoding.
 
     Parameters:
-    file_path (str): The path to the file.
+        file_path (str): The path to the file.
 
     Returns:
-    bytes: The content of the file as bytes.
+        bytes: The content of the file as bytes.
     """
     content = read_file_to_string(file_path)
     return content.encode('utf-8')
@@ -106,10 +135,10 @@ def addsyspath(directory: str):
     Add the specified directory to the system path if it is not already included.
 
     Parameters:
-    directory (str): The directory to be added to the system path.
+        directory (str): The directory to be added to the system path.
 
     Returns:
-    None
+        None
     """
     if directory not in sys.path:
         sys.path.append(directory)
@@ -119,11 +148,11 @@ def mv_file(src: str, dest: str):
     Moves a file from the source path to the destination path.
     
     Parameters:
-    src (str): The path of the file to be moved.
-    dest (str): The destination path where the file should be moved.
+        src (str): The path of the file to be moved.
+        dest (str): The destination path where the file should be moved.
     
     Returns:
-    None
+        None
     """
     subprocess.run(["mv", src, dest])
 
@@ -147,10 +176,10 @@ def list_dirs(main_dir: str) -> list:
     List all directories within the specified main directory.
 
     Args:
-    main_dir (str): The main directory path to list directories from.
+        main_dir (str): The main directory path to list directories from.
 
     Returns:
-    list: A list of directory names within the specified main directory.
+        list: A list of directory names within the specified main directory.
     """
     lsall = os.listdir(main_dir)
     lsd = [dir for dir in lsall if os.path.isdir(os.path.join(main_dir, dir))]

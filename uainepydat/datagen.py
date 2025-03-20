@@ -19,26 +19,32 @@ def gen_string_column(
 
     Parameters:
     -----------
-    size : int
+    size: int
         Number of strings to generate
-    length : int or tuple(int, int)
+    length: int or tuple(int, int)
         If int, the exact length of each string
         If tuple, the (min, max) length range for random string length
-    charset : str, optional
+    charset: str, optional
         String containing characters to use. If None, uses lowercase letters
-    prefix : str, optional
+    prefix: str, optional
         Prefix to add to each generated string
-    suffix : str, optional
+    suffix: str, optional
         Suffix to add to each generated string
-    null_prob : float, optional
+    null_prob: float, optional
         Probability of generating a null value (0.0 to 1.0)
-    pattern : str, optional
+    pattern: str, optional
         Pattern to use for string generation with character classes:
+
         - 'L' = uppercase letter
+
         - 'l' = lowercase letter
+
         - 'd' = digit
+
         - 'c' = special character
+        
         - 'a' = any alphanumeric character
+
         Example: 'Llldd-lldd' would generate something like 'Tgh45-jk78'
 
     Returns:
@@ -378,7 +384,15 @@ def gen_dataframe(
 
 def gen_sample_dataframe(rows: int, include_id: bool = True) -> pd.DataFrame:
     """
-    Generate a sample pandas DataFrame with specified columns.
+    Generate a sample pandas DataFrame from various column types.
+
+    Arguments:
+        rows (int): The number of rows to generate for the DataFrame.
+        include_id (bool): Whether to include an 'id' column as a unique identifier for each row.
+            Defaults to True.
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the sample data.
     """
     # Generate a sample dataframe
     sample_df = gen_dataframe(

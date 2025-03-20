@@ -48,6 +48,16 @@ chlog = fileio.read_file_to_string(changelog_path)
 chlog = datatransform.break_into_lines(chlog)
 post_str = datatransform.replace_between_tags(post_str, "changelog", chlog, deleteTags=True)
 
+#add description replacement
+description_path = "../meta/description.txt"
+if os.path.exists(description_path):
+    description_content = fileio.read_file_to_string(description_path)
+    description_content = datatransform.break_into_lines(description_content)
+    post_str = datatransform.replace_between_tags(post_str, "description", description_content, deleteTags=True)
+else:
+    print(f"Warning: {description_path} does not exist. Skipping description replacement.")
+
+
 post_compile_path = "source/index.rst"
 #overwrite the index.rst now
 with open(post_compile_path, "w") as text_file:
