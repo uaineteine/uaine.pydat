@@ -6,10 +6,10 @@ def gen_random_hex_string(bitlength) -> str:
     Generates a random hexadecimal string of the given bit length.
 
     Parameters:
-    bitlength (int): The length of the bit string to generate.
+        bitlength (int): The length of the bit string to generate.
 
     Returns:
-    str: A random hexadecimal string of the given bit length.
+        str: A random hexadecimal string of the given bit length.
     """
     return ''.join(np.random.choice(list('0123456789abcdef'), size=int(bitlength/4)))
 
@@ -18,7 +18,7 @@ def generate_256_bit_string() -> str:
     Generates a random 256-bit hexadecimal string.
 
     Returns:
-    str: A random 256-bit hexadecimal string.
+        str: A random 256-bit hexadecimal string.
     """
     return gen_random_hex_string(256)
 
@@ -27,7 +27,7 @@ def generate_8_bit_string() -> str:
     Generates a random 8-bit hexadecimal string.
 
     Returns:
-    str: A random 8-bit hexadecimal string.
+        str: A random 8-bit hexadecimal string.
     """
     return gen_random_hex_string(8)
 
@@ -37,7 +37,7 @@ def generate_random_uuid() -> str:
     with dashes removed.
 
     Returns:
-    str: A string representation of a random UUID without dashes.
+        str: A string representation of a random UUID without dashes.
     """
     return str(uuid.uuid4()).replace('-', '')
 
@@ -50,7 +50,7 @@ def generate_custom_uuid(marker: str = '-') -> str:
     marker (str): The character to use as a separator in the UUID. Default is '-'.
 
     Returns:
-    str: A string representation of a random UUID with the specified marker.
+        str: A string representation of a random UUID with the specified marker.
     """
     # Generate a UUID without dashes
     uuid_str = generate_random_uuid()
