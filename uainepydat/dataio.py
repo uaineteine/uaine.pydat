@@ -242,7 +242,7 @@ def read_xml_file(filepath: str, xpath: str = './*', attrs_only: bool = False,
 
     Args:
         filepath (str): The path to the XML file.
-        xpath (str): XPath string to parse specific nodes. Default is './*'.
+        xpath (str): XPath string to parse specific nodes. Default is ./*
         attrs_only (bool): Parse only the attributes, not the child elements. Default is False.
         encoding (str): The file encoding. Default is 'utf-8'.
 
