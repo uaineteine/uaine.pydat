@@ -4,6 +4,7 @@ import subprocess
 import sys
 import uuid
 import requests
+import shutil
 
 def list_files_of_extension(directory: str, extn: str) -> list[str]:
     """
@@ -145,7 +146,7 @@ def addsyspath(directory: str):
 
 def mv_file(src: str, dest: str):
     """
-    Moves a file from the source path to the destination path.
+    Moves a file from the source path to the destination path using shutil.
     
     Parameters:
         src (str): The path of the file to be moved.
@@ -154,7 +155,7 @@ def mv_file(src: str, dest: str):
     Returns:
         None
     """
-    subprocess.run(["mv", src, dest])
+    shutil.move(src, dest)
 
 def gen_random_subfolder(master_dir: str) -> str:
     """
