@@ -252,3 +252,27 @@ def calculate_checksums(dir_path):
 # # Run the test function
 # if __name__ == "__main__":
 #     test_calculate_checksums()
+
+# import unittest
+# class TestMvFile(unittest.TestCase):
+#     def setUp(self):
+#         """Set up test environment by creating a temporary file."""
+#         self.src = "test_file.txt"
+#         self.dest = "moved_test_file.txt"
+#         with open(self.src, "w") as f:
+#             f.write("This is a test file.")
+
+#     def test_mv_file(self):
+#         """Test if the file is moved correctly."""
+#         mv_file(self.src, self.dest)
+#         self.assertTrue(os.path.exists(self.dest))
+#         self.assertFalse(os.path.exists(self.src))
+
+#     def tearDown(self):
+#         """Clean up test files."""
+#         print("cleaning up...")
+#         if os.path.exists(self.dest):
+#             os.remove(self.dest)
+
+# if __name__ == "__main__":
+#     unittest.main()
