@@ -219,7 +219,7 @@ def read_json_file(filepath: str, orient: str = 'records', normalize: bool = Fal
     )
 
 def write_json_file(df: pd.DataFrame, filepath: str, orient: str = 'records', 
-                   index: bool = False, indent: int = 4) -> None:
+                   index: bool = False, indent: int = 4):
     """
     Write a DataFrame to a JSON file.
 
@@ -258,7 +258,7 @@ def read_xml_file(filepath: str, xpath: str = './*', attrs_only: bool = False,
 
 def write_xml_file(df: pd.DataFrame, filepath: str, index: bool = False, 
                   root_name: str = 'data', row_name: str = 'row',
-                  attr_cols: list = None) -> None:
+                  attr_cols: list = None):
     """
     Write a DataFrame to an XML file.
 

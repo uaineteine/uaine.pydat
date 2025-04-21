@@ -68,7 +68,7 @@ def remove_directory(dir_path: str) -> bool:
         print(f"Error removing directory {dir_path}: {e}")
         return False
         
-def create_filepath_dirs(path: str) -> None:
+def create_filepath_dirs(path: str):
     """
     Creates all directories needed for a given file path.
     
