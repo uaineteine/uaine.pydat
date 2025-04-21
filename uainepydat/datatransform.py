@@ -249,7 +249,7 @@ def xml_to_dataframe(xml_data, xpath: str = './*') -> pd.DataFrame:
         - A string containing XML data
         - A file path to an XML file
         - A file-like object containing XML data
-    xpath : str, default './*'
+    xpath : str, default ./*
         XPath string to parse specific nodes
 
     Returns:

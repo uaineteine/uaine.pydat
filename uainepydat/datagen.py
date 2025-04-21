@@ -389,7 +389,7 @@ def gen_sample_dataframe(rows: int, include_id: bool = True) -> pd.DataFrame:
     Arguments:
         rows (int): The number of rows to generate for the DataFrame.
         include_id (bool): Whether to include an 'id' column as a unique identifier for each row.
-            Defaults to True.
+        Defaults to True.
 
     Returns:
         pd.DataFrame: A pandas DataFrame containing the sample data.

@@ -4,6 +4,7 @@ import subprocess
 import sys
 import uuid
 import requests
+import shutil
 
 def list_files_of_extension(directory: str, extn: str) -> list[str]:
     """
@@ -67,7 +68,7 @@ def remove_directory(dir_path: str) -> bool:
         print(f"Error removing directory {dir_path}: {e}")
         return False
         
-def create_filepath_dirs(path: str) -> None:
+def create_filepath_dirs(path: str):
     """
     Creates all directories needed for a given file path.
     
@@ -145,7 +146,7 @@ def addsyspath(directory: str):
 
 def mv_file(src: str, dest: str):
     """
-    Moves a file from the source path to the destination path.
+    Moves a file from the source path to the destination path using shutil.
     
     Parameters:
         src (str): The path of the file to be moved.
@@ -154,7 +155,7 @@ def mv_file(src: str, dest: str):
     Returns:
         None
     """
-    subprocess.run(["mv", src, dest])
+    shutil.move(src, dest)
 
 def gen_random_subfolder(master_dir: str) -> str:
     """
@@ -184,3 +185,94 @@ def list_dirs(main_dir: str) -> list:
     lsall = os.listdir(main_dir)
     lsd = [dir for dir in lsall if os.path.isdir(os.path.join(main_dir, dir))]
     return lsd
+
+import os
+import hashlib
+
+def calculate_checksums(dir_path):
+    """
+    Calculate MD5 checksums for all files in the specified directory.
+
+    :param dir_path: Path to the directory containing files.
+    :type dir_path: str
+    :return: Dictionary mapping file paths to their MD5 checksum.
+    :rtype: dict
+    """
+    file_dict = {}
+    for filename in os.listdir(dir_path):
+        full_filename = os.path.join(dir_path, filename)
+        with open(full_filename, 'rb') as f:
+            content = f.read()
+            checksum = hashlib.md5(content).hexdigest()
+            file_dict[full_filename] = checksum
+
+    return file_dict
+
+# def test_calculate_checksums():
+#     """
+#     Test function for calculate_checksums.
+    
+#     - Creates temporary files with known content.
+#     - Validates checksum calculation.
+#     - Cleans up test files afterward.
+#     """
+#     import tempfile
+#     import shutil
+
+#     # Create a temporary directory
+#     temp_dir = tempfile.mkdtemp()
+
+#     # Create test files
+#     test_files = {
+#         "test1.txt": b"Hello, World!",
+#         "test2.txt": b"Python is great!",
+#     }
+
+#     expected_checksums = {}
+
+#     for filename, content in test_files.items():
+#         file_path = os.path.join(temp_dir, filename)
+#         with open(file_path, 'wb') as f:
+#             f.write(content)
+#         expected_checksums[file_path] = hashlib.md5(content).hexdigest()
+
+#     # Run function
+#     result = calculate_checksums(temp_dir)
+
+#     # Check results
+#     assert result == expected_checksums, f"Expected {expected_checksums}, got {result}"
+
+#     print(result)
+
+#     # Cleanup
+#     shutil.rmtree(temp_dir)
+
+#     print("All tests passed!")
+
+# # Run the test function
+# if __name__ == "__main__":
+#     test_calculate_checksums()
+
+# import unittest
+# class TestMvFile(unittest.TestCase):
+#     def setUp(self):
+#         """Set up test environment by creating a temporary file."""
+#         self.src = "test_file.txt"
+#         self.dest = "moved_test_file.txt"
+#         with open(self.src, "w") as f:
+#             f.write("This is a test file.")
+
+#     def test_mv_file(self):
+#         """Test if the file is moved correctly."""
+#         mv_file(self.src, self.dest)
+#         self.assertTrue(os.path.exists(self.dest))
+#         self.assertFalse(os.path.exists(self.src))
+
+#     def tearDown(self):
+#         """Clean up test files."""
+#         print("cleaning up...")
+#         if os.path.exists(self.dest):
+#             os.remove(self.dest)
+
+# if __name__ == "__main__":
+#     unittest.main()
