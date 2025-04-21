@@ -4,6 +4,7 @@ Version 1.2.1
 
   - `calculate_checksums`: Calculates MD5 checksums for all files in a specified directory, returning a dictionary mapping file paths to their checksums. 
 * Methods that return no value are no longer displayed in the function signature
+* Fix applied for move file function to be platform independent
 
 Version 1.2
 ^^^^^^^^^^^^^
