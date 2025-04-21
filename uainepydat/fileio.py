@@ -184,3 +184,70 @@ def list_dirs(main_dir: str) -> list:
     lsall = os.listdir(main_dir)
     lsd = [dir for dir in lsall if os.path.isdir(os.path.join(main_dir, dir))]
     return lsd
+
+import os
+import hashlib
+
+def calculate_checksums(dir_path):
+    """
+    Calculate MD5 checksums for all files in the specified directory.
+
+    :param dir_path: Path to the directory containing files.
+    :type dir_path: str
+    :return: Dictionary mapping file paths to their MD5 checksum.
+    :rtype: dict
+    """
+    file_dict = {}
+    for filename in os.listdir(dir_path):
+        full_filename = os.path.join(dir_path, filename)
+        with open(full_filename, 'rb') as f:
+            content = f.read()
+            checksum = hashlib.md5(content).hexdigest()
+            file_dict[full_filename] = checksum
+
+    return file_dict
+
+# def test_calculate_checksums():
+#     """
+#     Test function for calculate_checksums.
+    
+#     - Creates temporary files with known content.
+#     - Validates checksum calculation.
+#     - Cleans up test files afterward.
+#     """
+#     import tempfile
+#     import shutil
+
+#     # Create a temporary directory
+#     temp_dir = tempfile.mkdtemp()
+
+#     # Create test files
+#     test_files = {
+#         "test1.txt": b"Hello, World!",
+#         "test2.txt": b"Python is great!",
+#     }
+
+#     expected_checksums = {}
+
+#     for filename, content in test_files.items():
+#         file_path = os.path.join(temp_dir, filename)
+#         with open(file_path, 'wb') as f:
+#             f.write(content)
+#         expected_checksums[file_path] = hashlib.md5(content).hexdigest()
+
+#     # Run function
+#     result = calculate_checksums(temp_dir)
+
+#     # Check results
+#     assert result == expected_checksums, f"Expected {expected_checksums}, got {result}"
+
+#     print(result)
+
+#     # Cleanup
+#     shutil.rmtree(temp_dir)
+
+#     print("All tests passed!")
+
+# # Run the test function
+# if __name__ == "__main__":
+#     test_calculate_checksums()
