@@ -47,6 +47,7 @@ This package aims to reduce the complexity of common data handling tasks by prov
 7. **twine**: This is for making the package yourself
 8. **psutil**: This is for checking process availability of the machine
 9. **lxml**: This for parsing xml files and content
+10. **polars**: For lazy stream reading and writing of parquets
 
 # Changelog
 
