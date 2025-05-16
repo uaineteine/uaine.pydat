@@ -1,3 +1,19 @@
+Version 1.3
+^^^^^^^^^^^^^
+* Added new data conversion functionality in dataio module:
+
+  - `csv_to_parquet`: Converts CSV files to Parquet format using Polars in streaming mode with support for custom separators and output file naming
+
+* Enhanced hashing capabilities with new functions in datahash module:
+
+  - `hashmd5`: Creates an MD5 hash using provided data and salt
+
+* Added new Azure blob module (blobhelper) for path operations:
+
+  - `get_blob_container_path`: Returns the absolute path of a blob container
+  
+  - `get_blob_subfolder_path`: Returns the absolute path of a blob subfolder within a container
+
 Version 1.2.1
 ^^^^^^^^^^^^^
 * Added new function to fileio module:
