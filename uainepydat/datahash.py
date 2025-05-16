@@ -58,6 +58,21 @@ def randomize_hash(hash_string: str, salt_length: int = 16) -> str:
     # Use the existing hash256 function with the random salt
     return hash256(hash_string, random_salt)
 
+def hashmd5(datastr: str, sha_salt: str) -> str:
+    """
+    Create an MD5 hash using the provided data and salt.
+    
+    Args:
+        datastr (str): The data to be hashed.
+        sha_salt (str): The salt to be used in the MD5 hashing.
+
+    Returns:
+        str: The hexadecimal digest of the MD5 hash.
+    """
+    combined_data = (sha_salt + datastr).encode('utf-8')  # Incorporate the salt into the data
+    md5_hash = hashlib.md5(combined_data).hexdigest()
+    return md5_hash
+
 # Test executions
 # if __name__ == "__main__":
 #     # Test data

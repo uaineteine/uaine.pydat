@@ -2,9 +2,29 @@ import os
 import configparser
 import pandas as pd
 import json
+import polars as pl
 from io import StringIO
 from uainepydat import fileio
 from uainepydat import datatransform
+
+def csv_to_parquet(input_file: str, separator: str = ",", output_file: str= None) -> None:
+    """
+    Converts a CSV file to a Parquet file using Polars in streaming mode.
+    
+    Parameters:
+      - input_file (str): The path to the CSV file.
+      - separator (str): The delimiter used in the CSV (default: comma).
+      - output_file (Optional[str]): The path for the output Parquet file.
+         If not provided, it defaults to the same prefix as input_file with a .parquet extension.
+    """
+    if output_file is None:
+        # Automatically derive the output file name from the input file
+        base, _ = os.path.splitext(input_file)
+        output_file = f"{base}.parquet"
+
+    # Read the CSV file in streaming mode and then write to Parquet
+    df = pl.scan_csv(input_file, separator=separator)
+    df.sink_parquet(output_file)
 
 def read_sas_metadata(filepath: str, encoding: str = "latin-1") -> dict:
     """

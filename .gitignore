@@ -9,3 +9,4 @@ automation/devscripts/key.txt
 docs/build/*
 docs/source/index.rst
 uainepydat/test_chunk_for_sas/dataset.sas7bdat
+uainepydat/test_polars/address_detail.parquet

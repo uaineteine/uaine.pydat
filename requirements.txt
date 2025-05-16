@@ -6,3 +6,4 @@ wheel
 twine
 psutil
 lxml
+polars
