@@ -3,8 +3,8 @@ import numpy as np
 import random
 
 # Parameters
-num_rows = 20_000
-names = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
+num_rows = 20_0000
+names = ["Alice", "Bob"]
 
 # Generate data
 ids = np.arange(1, num_rows + 1, dtype=np.int64)
