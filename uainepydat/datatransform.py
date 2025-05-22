@@ -289,6 +289,13 @@ def dataframe_to_xml(df: pd.DataFrame, root_name: str = 'data', row_name: str = 
     """
     return df.to_xml(root_name=root_name, row_name=row_name)
 
+def merge_dataframes(df_list: list[pd.DataFrame]) -> pd.DataFrame:
+    """
+    Merges a list of DataFrames into a single DataFrame, aligning columns by name.
+    Missing columns will be filled with NaN.
+    """
+    return pd.concat(df_list, ignore_index=True)
+
 # Execution tests
 #if __name__ == "__main__":
     # print("\n=== Testing replace_between_tags ===")

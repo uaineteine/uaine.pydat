@@ -10,3 +10,5 @@ docs/build/*
 docs/source/index.rst
 uainepydat/test_chunk_for_sas/dataset.sas7bdat
 uainepydat/test_polars/address_detail.parquet
+uainepydat/test_delta_spark/data.parquet
+uainepydat/test_delta_spark/data2.parquet
