@@ -2,7 +2,7 @@
 
 A python package to assist in data and database handling.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI Downloads](https://static.pepy.tech/badge/uainepydat)](https://pepy.tech/projects/uainepydat) ![Version 1.4](https://img.shields.io/badge/version-1.4-brightgreen)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI Downloads](https://static.pepy.tech/badge/uainepydat)](https://pepy.tech/projects/uainepydat) ![Version 1.5](https://img.shields.io/badge/version-1.5-brightgreen)
 
 -Daniel Stamer-Squair 
 
@@ -48,6 +48,8 @@ This package aims to reduce the complexity of common data handling tasks by prov
 8. **psutil**: This is for checking process availability of the machine
 9. **lxml**: This for parsing xml files and content
 10. **polars**: For lazy stream reading and writing of parquets
+11. **azure-storage-blob**: For listing and downloading from blob containers
+12. **tqdm**: For progress bars
 
 # Changelog
 

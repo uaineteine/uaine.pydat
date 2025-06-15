@@ -1,3 +1,13 @@
+Version 1.5
+^^^^^^^^^^^^^
+* Enhanced blob helper module with new functions:
+
+  - `list_blob_content`: Lists all blobs in a specified container or subfolder
+
+  - `download_all_blobs`: Downloads a blob to a specified local path
+
+  - `get_account_url`: Generates Azure Storage account URL from storage account name
+
 Version 1.4
 ^^^^^^^^^^^^^
 * Added new function to datatransform module:

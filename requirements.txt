@@ -7,3 +7,5 @@ twine
 psutil
 lxml
 polars
+azure-storage-blob
+tqdm
