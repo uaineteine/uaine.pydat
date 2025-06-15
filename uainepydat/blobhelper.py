@@ -1,3 +1,10 @@
+import os
+from tqdm import tqdm
+from azure.stroage.blob import BlobServiceClient
+
+def get_account_url(storage_account):
+    return f"https://{storage_account}.blob.core.windows.net"
+
 def get_blob_container_path(storage_account, container):
     """
     Returns the absolute path of the blob container.
@@ -6,7 +13,9 @@ def get_blob_container_path(storage_account, container):
     :param container: Name of the blob container.
     :return: Absolute path as a string.
     """
-    return f"https://{storage_account}.blob.core.windows.net/{container}"
+    account_url = get_account_url(storage_account)
+    #return f"{https://{storage_account}.blob.core.windows.net}/{container}"
+    return f"{account_url}/{container}"
 
 def get_blob_subfolder_path(storage_account, container, subfolder):
     """
@@ -19,6 +28,27 @@ def get_blob_subfolder_path(storage_account, container, subfolder):
     """
     base_path = get_blob_container_path(storage_account, container)
     return f"{base_path}/{subfolder}"
+
+def list_blob_content(account_url, container, folder_path, sastoken, file_extn = ""):
+    blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
+    cont_client = blob_serv_client.get_container_client(container)
+    blobs = cont_client.list_blobs(name_starts_with=folder_path)
+
+    #apply type filtering for file extensions
+    if file_extn != "":
+        tar_blobs = [blob for blob in blobs if blob.name.endswith("." + file_extn)]
+        return tar_blobs
+    #implied else
+    return blobs
+
+def download_all_blobs(account_url, container, folder_path, sastoken, download_loc, file_extn=""):
+    blobs = list_blob_content(account_url=account_url, container, folder_path, file_extn=file_extn)
+    for blob in tqdm(csv, desc="Downloading", unit="file"):
+        blob_client = cont_client.get_blob_client(blob.name)
+        down_path = os.path.join(download_loc, os.path.basename(blob.name))
+    
+        with open(down_path, "wb") as file:
+            file.write(blob_client.download_blob().readall())
 
 # Example usage
 #storage_account = "yourstorageaccount"
