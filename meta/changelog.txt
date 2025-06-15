@@ -1,3 +1,13 @@
+Version 1.5
+^^^^^^^^^^^^^
+* Enhanced blob helper module with new functions:
+
+  - `list_blobs`: Lists all blobs in a specified container or subfolder
+
+  - `download_blob`: Downloads a blob to a specified local path
+
+* Updated README and requirements to include new dependencies
+
 Version 1.4
 ^^^^^^^^^^^^^
 * Added new function to datatransform module:
