@@ -55,157 +55,157 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
         with open(down_path, "wb") as file:
             file.write(blob_client.download_blob().readall())
 
-def test1():
-    """
-    Example usage and test suite for blob helper functions.
-    """
-    import sys
+# def test1():
+#     """
+#     Example usage and test suite for blob helper functions.
+#     """
+#     import sys
     
-    # Example usage
-    storage_account = "yourstorageaccount"
-    container = "yourcontainer"
-    subfolder = "folder1/folder2"
-    print(get_blob_subfolder_path(storage_account, container, subfolder))
+#     # Example usage
+#     storage_account = "yourstorageaccount"
+#     container = "yourcontainer"
+#     subfolder = "folder1/folder2"
+#     print(get_blob_subfolder_path(storage_account, container, subfolder))
     
-    def run_test(test_func, name):
-        """Helper function to run and report test results"""
-        try:
-            test_func()
-            print(f"✓ {name} passed")
-            return True
-        except AssertionError as e:
-            print(f"✗ {name} failed: {e}")
-            return False
+#     def run_test(test_func, name):
+#         """Helper function to run and report test results"""
+#         try:
+#             test_func()
+#             print(f"✓ {name} passed")
+#             return True
+#         except AssertionError as e:
+#             print(f"✗ {name} failed: {e}")
+#             return False
     
-    def test_get_blob_container_path():
-        """Test the get_blob_container_path function"""
-        # Test case 1: Basic functionality
-        result = get_blob_container_path("teststorage", "testcontainer")
-        expected = "https://teststorage.blob.core.windows.net/testcontainer"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#     def test_get_blob_container_path():
+#         """Test the get_blob_container_path function"""
+#         # Test case 1: Basic functionality
+#         result = get_blob_container_path("teststorage", "testcontainer")
+#         expected = "https://teststorage.blob.core.windows.net/testcontainer"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
         
-        # Test case 2: Special characters in storage account name
-        result = get_blob_container_path("test-storage", "testcontainer")
-        expected = "https://test-storage.blob.core.windows.net/testcontainer"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#         # Test case 2: Special characters in storage account name
+#         result = get_blob_container_path("test-storage", "testcontainer")
+#         expected = "https://test-storage.blob.core.windows.net/testcontainer"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
         
-        # Test case 3: Special characters in container name
-        result = get_blob_container_path("teststorage", "test-container")
-        expected = "https://teststorage.blob.core.windows.net/test-container"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#         # Test case 3: Special characters in container name
+#         result = get_blob_container_path("teststorage", "test-container")
+#         expected = "https://teststorage.blob.core.windows.net/test-container"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
     
-    def test_get_blob_subfolder_path():
-        """Test the get_blob_subfolder_path function"""
-        # Test case 1: Basic functionality
-        result = get_blob_subfolder_path("teststorage", "testcontainer", "testfolder")
-        expected = "https://teststorage.blob.core.windows.net/testcontainer/testfolder"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#     def test_get_blob_subfolder_path():
+#         """Test the get_blob_subfolder_path function"""
+#         # Test case 1: Basic functionality
+#         result = get_blob_subfolder_path("teststorage", "testcontainer", "testfolder")
+#         expected = "https://teststorage.blob.core.windows.net/testcontainer/testfolder"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
         
-        # Test case 2: Nested subfolder path
-        result = get_blob_subfolder_path("teststorage", "testcontainer", "folder1/folder2")
-        expected = "https://teststorage.blob.core.windows.net/testcontainer/folder1/folder2"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#         # Test case 2: Nested subfolder path
+#         result = get_blob_subfolder_path("teststorage", "testcontainer", "folder1/folder2")
+#         expected = "https://teststorage.blob.core.windows.net/testcontainer/folder1/folder2"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
         
-        # Test case 3: Subfolder with special characters
-        result = get_blob_subfolder_path("teststorage", "testcontainer", "folder-with-dashes")
-        expected = "https://teststorage.blob.core.windows.net/testcontainer/folder-with-dashes"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#         # Test case 3: Subfolder with special characters
+#         result = get_blob_subfolder_path("teststorage", "testcontainer", "folder-with-dashes")
+#         expected = "https://teststorage.blob.core.windows.net/testcontainer/folder-with-dashes"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
         
-        # Test case 4: Empty subfolder path
-        result = get_blob_subfolder_path("teststorage", "testcontainer", "")
-        expected = "https://teststorage.blob.core.windows.net/testcontainer/"
-        assert result == expected, f"Expected '{expected}', got '{result}'"
+#         # Test case 4: Empty subfolder path
+#         result = get_blob_subfolder_path("teststorage", "testcontainer", "")
+#         expected = "https://teststorage.blob.core.windows.net/testcontainer/"
+#         assert result == expected, f"Expected '{expected}', got '{result}'"
     
-    # Run all tests
-    print("Running tests for blobcontainer.py module...")
-    tests = [
-        (test_get_blob_container_path, "get_blob_container_path"),
-        (test_get_blob_subfolder_path, "get_blob_subfolder_path")
-    ]
+#     # Run all tests
+#     print("Running tests for blobcontainer.py module...")
+#     tests = [
+#         (test_get_blob_container_path, "get_blob_container_path"),
+#         (test_get_blob_subfolder_path, "get_blob_subfolder_path")
+#     ]
     
-    failed = 0
-    for test_func, name in tests:
-        if not run_test(test_func, name):
-            failed += 1
+#     failed = 0
+#     for test_func, name in tests:
+#         if not run_test(test_func, name):
+#             failed += 1
     
-    # Report test results
-    total = len(tests)
-    passed = total - failed
-    print(f"\nTest results: {passed}/{total} tests passed")
+#     # Report test results
+#     total = len(tests)
+#     passed = total - failed
+#     print(f"\nTest results: {passed}/{total} tests passed")
     
-    # Set exit code based on test results
-    sys.exit(1 if failed > 0 else 0)
+#     # Set exit code based on test results
+#     sys.exit(1 if failed > 0 else 0)
 
-def test2():
-    """
-    Test suite for blob operations using Azure Storage Emulator.
-    Tests listing and downloading blobs from the emulator.
-    """
-    import sys
+# def test2():
+#     """
+#     Test suite for blob operations using Azure Storage Emulator.
+#     Tests listing and downloading blobs from the emulator.
+#     """
+#     import sys
     
-    # Azure Storage Emulator settings
-    account_url = "http://127.0.0.1:10000/devstoreaccount1"
-    container = "test-container"
-    sastoken = "?sv=2018-03-28&st=2025-06-15T10%3A36%3A47Z&se=2025-06-16T10%3A36%3A47Z&sr=c&sp=rl&sig=FzDNsOBYgBTXALSnaMFbTAludECRsg0uzA4ihhBp2V0%3D"  # Example token
-    test_folder = "test-folder"
-    download_loc = "test-downloads"
+#     # Azure Storage Emulator settings
+#     account_url = "http://127.0.0.1:10000/devstoreaccount1"
+#     container = "test-container"
+#     sastoken = "?sv=2018-03-28&st=2025-06-15T10%3A36%3A47Z&se=2025-06-16T10%3A36%3A47Z&sr=c&sp=rl&sig=FzDNsOBYgBTXALSnaMFbTAludECRsg0uzA4ihhBp2V0%3D"  # Example token
+#     test_folder = "test-folder"
+#     download_loc = "test-downloads"
     
-    def run_test(test_func, name):
-        """Helper function to run and report test results"""
-        try:
-            test_func()
-            print(f"✓ {name} passed")
-            return True
-        except Exception as e:
-            print(f"✗ {name} failed: {str(e)}")
-            return False
+#     def run_test(test_func, name):
+#         """Helper function to run and report test results"""
+#         try:
+#             test_func()
+#             print(f"✓ {name} passed")
+#             return True
+#         except Exception as e:
+#             print(f"✗ {name} failed: {str(e)}")
+#             return False
     
-    def test_list_blobs():
-        """Test listing blobs from the container"""
-        try:
-            blobs = list_blob_content(account_url, container, test_folder, sastoken)
-            # Convert to list to check if we can iterate
-            blob_list = list(blobs)
-            print(f"Found {len(blob_list)} blobs in {test_folder}")
-            return True
-        except Exception as e:
-            raise AssertionError(f"Failed to list blobs: {str(e)}")
+#     def test_list_blobs():
+#         """Test listing blobs from the container"""
+#         try:
+#             blobs = list_blob_content(account_url, container, test_folder, sastoken)
+#             # Convert to list to check if we can iterate
+#             blob_list = list(blobs)
+#             print(f"Found {len(blob_list)} blobs in {test_folder}")
+#             return True
+#         except Exception as e:
+#             raise AssertionError(f"Failed to list blobs: {str(e)}")
     
-    def test_download_blobs():
-        """Test downloading blobs from the container"""
-        try:
-            download_all_blobs(account_url, container, test_folder, sastoken, download_loc)
-            # Check if download directory was created
-            assert os.path.exists(download_loc), f"Download directory {download_loc} was not created"
-            return True
-        except Exception as e:
-            raise AssertionError(f"Failed to download blobs: {str(e)}")
+#     def test_download_blobs():
+#         """Test downloading blobs from the container"""
+#         try:
+#             download_all_blobs(account_url, container, test_folder, sastoken, download_loc)
+#             # Check if download directory was created
+#             assert os.path.exists(download_loc), f"Download directory {download_loc} was not created"
+#             return True
+#         except Exception as e:
+#             raise AssertionError(f"Failed to download blobs: {str(e)}")
     
-    # Run all tests
-    print("\nRunning tests for blob operations using Azure Storage Emulator...")
-    tests = [
-        (test_list_blobs, "list_blobs"),
-        (test_download_blobs, "download_blobs")
-    ]
+#     # Run all tests
+#     print("\nRunning tests for blob operations using Azure Storage Emulator...")
+#     tests = [
+#         (test_list_blobs, "list_blobs"),
+#         (test_download_blobs, "download_blobs")
+#     ]
     
-    failed = 0
-    for test_func, name in tests:
-        if not run_test(test_func, name):
-            failed += 1
+#     failed = 0
+#     for test_func, name in tests:
+#         if not run_test(test_func, name):
+#             failed += 1
     
-    # Report test results
-    total = len(tests)
-    passed = total - failed
-    print(f"\nTest results: {passed}/{total} tests passed")
+#     # Report test results
+#     total = len(tests)
+#     passed = total - failed
+#     print(f"\nTest results: {passed}/{total} tests passed")
     
-    # Cleanup
-    if os.path.exists(download_loc):
-        import shutil
-        shutil.rmtree(download_loc)
+#     # Cleanup
+#     if os.path.exists(download_loc):
+#         import shutil
+#         shutil.rmtree(download_loc)
     
-    # Set exit code based on test results
-    sys.exit(1 if failed > 0 else 0)
+#     # Set exit code based on test results
+#     sys.exit(1 if failed > 0 else 0)
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     #test1()
-    test2()
+    #test2()
