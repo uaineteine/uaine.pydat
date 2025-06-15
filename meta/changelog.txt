@@ -8,8 +8,6 @@ Version 1.5
 
   - `get_account_url`: Generates Azure Storage account URL from storage account name
 
-* Updated README and requirements to include new dependencies
-
 Version 1.4
 ^^^^^^^^^^^^^
 * Added new function to datatransform module:
