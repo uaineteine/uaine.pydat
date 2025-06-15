@@ -41,8 +41,11 @@ def list_blob_content(account_url, container, folder_path, sastoken, file_extn =
     #implied else
     return blobs
 
-def download_all_blobs(account_url, container, folder_path, sastoken, download_loc, file_extn=""):
+def download_all_blobs(account_url, container, folder_path, sastoken, download_loc, file_extn="", makedirs=True):
     blobs = list_blob_content(account_url=account_url, container, folder_path, file_extn=file_extn)
+
+    os.makedirs(download_loc, exist_ok=True)
+
     for blob in tqdm(csv, desc="Downloading", unit="file"):
         blob_client = cont_client.get_blob_client(blob.name)
         down_path = os.path.join(download_loc, os.path.basename(blob.name))
