@@ -3,6 +3,20 @@ from tqdm import tqdm
 from azure.storage.blob import BlobServiceClient
 
 def get_account_url(storage_account):
+    """
+    Generate the Azure Storage account URL from the storage account name.
+
+    Args:
+        storage_account (str): The name of the Azure Storage account.
+
+    Returns:
+        str: The complete Azure Storage account URL in the format 
+             'https://{storage_account}.blob.core.windows.net'
+
+    Example:
+        >>> get_account_url('myaccount')
+        'https://myaccount.blob.core.windows.net'
+    """
     return f"https://{storage_account}.blob.core.windows.net"
 
 def get_blob_container_path(storage_account, container):
@@ -30,6 +44,20 @@ def get_blob_subfolder_path(storage_account, container, subfolder):
     return f"{base_path}/{subfolder}"
 
 def list_blob_content(account_url, container, folder_path, sastoken, file_extn = ""):
+    """
+    List blobs in an Azure Storage container with optional file extension filtering.
+
+    Args:
+        account_url (str): The Azure Storage account URL.
+        container (str): The name of the container to list blobs from.
+        folder_path (str): The folder path prefix to filter blobs by.
+        sastoken (str): The SAS token for authentication.
+        file_extn (str, optional): File extension to filter blobs by (e.g., 'txt', 'pdf'). 
+                                 If empty, returns all blobs. Defaults to "".
+
+    Returns:
+        list: A list of BlobProperties objects matching the specified criteria.
+    """
     blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
     cont_client = blob_serv_client.get_container_client(container)
     blobs = cont_client.list_blobs(name_starts_with=folder_path)
@@ -42,6 +70,24 @@ def list_blob_content(account_url, container, folder_path, sastoken, file_extn =
     return blobs
 
 def download_all_blobs(account_url, container, folder_path, sastoken, download_loc, file_extn="", makedirs=True):
+    """
+    Download all blobs from an Azure Storage container to a local directory.
+
+    Args:
+        account_url (str): The Azure Storage account URL.
+        container (str): The name of the container to download blobs from.
+        folder_path (str): The folder path prefix to filter blobs by.
+        sastoken (str): The SAS token for authentication.
+        download_loc (str): Local directory path where blobs will be downloaded.
+        file_extn (str, optional): File extension to filter blobs by (e.g., 'txt', 'pdf'). 
+                                 If empty, downloads all blobs. Defaults to "".
+        makedirs (bool, optional): Whether to create the download directory if it doesn't exist. 
+                                 Defaults to True.
+
+    Note:
+        This function will create the download directory if it doesn't exist and makedirs is True.
+        Files are downloaded with their original names from the blob storage.
+    """
     blobs = list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn)
 
     os.makedirs(download_loc, exist_ok=True)
