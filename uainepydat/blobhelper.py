@@ -101,35 +101,31 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
         with open(down_path, "wb") as file:
             file.write(blob_client.download_blob().readall())
 
+from azure.storage.blob import BlobServiceClient
+from tqdm import tqdm
+import os
+
 def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, download_loc, 
                                  file_extn="", makedirs=True, chunk_size=16 * 1024 * 1024):
-    """
-    Download all blobs from an Azure Storage container to a local directory using chunked streaming.
-
-    Args:
-        account_url (str): Azure Storage account URL.
-        container (str): Name of the container to download blobs from.
-        folder_path (str): Folder path prefix to filter blobs by.
-        sastoken (str): SAS token for authentication.
-        download_loc (str): Local directory path where blobs will be downloaded.
-        file_extn (str, optional): Filter by file extension (e.g., 'txt', 'pdf').
-        makedirs (bool, optional): Whether to create download directory if it doesn't exist.
-        chunk_size (int, optional): Chunk size in bytes. Defaults to 16MB.
-    """
     blobs = list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn)
     os.makedirs(download_loc, exist_ok=makedirs)
-    
+
     blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
     cont_client = blob_serv_client.get_container_client(container)
-    
-    for blob in tqdm(blobs, desc="Downloading", unit="file"):
-        blob_client = cont_client.get_blob_client(blob.name)
-        down_path = os.path.join(download_loc, os.path.basename(blob.name))
 
-        with open(down_path, "wb") as file:
-            stream = blob_client.download_blob()
-            for chunk in stream.chunks(chunk_size):
-                file.write(chunk)
+    # Precompute total download size
+    total_bytes = sum(blob.size for blob in blobs)
+
+    with tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024, desc="Total Download") as total_bar:
+        for blob in blobs:
+            blob_client = cont_client.get_blob_client(blob.name)
+            down_path = os.path.join(download_loc, os.path.basename(blob.name))
+
+            with open(down_path, "wb") as file:
+                stream = blob_client.download_blob()
+                for chunk in stream.chunks(chunk_size):
+                    file.write(chunk)
+                    total_bar.update(len(chunk))
 
 # def test1():
 #     """
