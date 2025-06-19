@@ -131,7 +131,6 @@ def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, 
             for chunk in stream.chunks(chunk_size):
                 file.write(chunk)
 
-
 # def test1():
 #     """
 #     Example usage and test suite for blob helper functions.
