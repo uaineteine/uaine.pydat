@@ -90,7 +90,7 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
     """
     blobs = list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn)
 
-    os.makedirs(download_loc, exist_ok=True)
+    os.makedirs(download_loc, exist_ok=makedirs)
     
     blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
     cont_client = blob_serv_client.get_container_client(container)
@@ -100,6 +100,32 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
     
         with open(down_path, "wb") as file:
             file.write(blob_client.download_blob().readall())
+
+from azure.storage.blob import BlobServiceClient
+from tqdm import tqdm
+import os
+
+def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, download_loc, 
+                                 file_extn="", makedirs=True, chunk_size=16 * 1024 * 1024):
+    blobs = list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn)
+    os.makedirs(download_loc, exist_ok=makedirs)
+
+    blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
+    cont_client = blob_serv_client.get_container_client(container)
+
+    # Precompute total download size
+    total_bytes = sum(blob.size for blob in blobs)
+
+    with tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024, desc="Total Download") as total_bar:
+        for blob in blobs:
+            blob_client = cont_client.get_blob_client(blob.name)
+            down_path = os.path.join(download_loc, os.path.basename(blob.name))
+
+            with open(down_path, "wb") as file:
+                stream = blob_client.download_blob()
+                for chunk in stream.chunks(chunk_size):
+                    file.write(chunk)
+                    total_bar.update(len(chunk))
 
 # def test1():
 #     """
