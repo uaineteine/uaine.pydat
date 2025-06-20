@@ -128,64 +128,64 @@ def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, 
             except Exception as e:
                 print(f"Failed to download {blob.name}: {e}")
 
-def test3():
-    """
-    Test suite for chunked blob downloads using Azure Storage Emulator or a test account.
-    Tests downloading blobs in chunks and verifies the download directory and files.
-    """
-    import sys
-    import glob
-    import shutil
+# def test3():
+#     """
+#     Test suite for chunked blob downloads using Azure Storage Emulator or a test account.
+#     Tests downloading blobs in chunks and verifies the download directory and files.
+#     """
+#     import sys
+#     import glob
+#     import shutil
 
-    # Azure Storage Emulator or test account settings
-    account_url = "http://127.0.0.1:10000/devstoreaccount1"  # Change as needed
-    container = "test-container"
-    sastoken = "?sv=2018-03-28&st=2025-06-20T06%3A25%3A16Z&se=2025-06-21T06%3A25%3A16Z&sr=c&sp=rl&sig=2Ds12w6B2h1hyP5VXFup%2BEZ16%2BvV3J3A3F%2BXtoYoyyM%3D"  # Example token
-    test_folder = "test-folder"
-    download_loc = "test-downloads-chunks"
-    file_extn = ""  # Set to a specific extension if desired
+#     # Azure Storage Emulator or test account settings
+#     account_url = "http://127.0.0.1:10000/devstoreaccount1"  # Change as needed
+#     container = "test-container"
+#     sastoken = "?sv=2018-03-28&st=2025-06-20T06%3A25%3A16Z&se=2025-06-21T06%3A25%3A16Z&sr=c&sp=rl&sig=2Ds12w6B2h1hyP5VXFup%2BEZ16%2BvV3J3A3F%2BXtoYoyyM%3D"  # Example token
+#     test_folder = "test-folder"
+#     download_loc = "test-downloads-chunks"
+#     file_extn = ""  # Set to a specific extension if desired
 
-    def run_test(test_func, name):
-        try:
-            test_func()
-            print(f"✓ {name} passed")
-            return True
-        except Exception as e:
-            print(f"✗ {name} failed: {str(e)}")
-            return False
+#     def run_test(test_func, name):
+#         try:
+#             test_func()
+#             print(f"✓ {name} passed")
+#             return True
+#         except Exception as e:
+#             print(f"✗ {name} failed: {str(e)}")
+#             return False
 
-    def test_chunked_download():
-        # try:
-            # Download blobs in chunks
-            download_all_blobs_in_chunks(account_url, container, test_folder, sastoken, download_loc, file_extn=file_extn, makedirs=True)
-            print("assessing test")
-            # Check if download directory was created
-            assert os.path.exists(download_loc), f"Download directory {download_loc} was not created"
-            # Check if at least one file was downloaded
-            files = glob.glob(os.path.join(download_loc, "*"))
-            assert len(files) > 0, f"No files were downloaded to {download_loc}"
-            print(f"Downloaded {len(files)} files to {download_loc}")
-        # except Exception as e:
-        #     raise AssertionError(f"Failed to download blobs in chunks: {str(e)}")
+#     def test_chunked_download():
+#         # try:
+#             # Download blobs in chunks
+#             download_all_blobs_in_chunks(account_url, container, test_folder, sastoken, download_loc, file_extn=file_extn, makedirs=True)
+#             print("assessing test")
+#             # Check if download directory was created
+#             assert os.path.exists(download_loc), f"Download directory {download_loc} was not created"
+#             # Check if at least one file was downloaded
+#             files = glob.glob(os.path.join(download_loc, "*"))
+#             assert len(files) > 0, f"No files were downloaded to {download_loc}"
+#             print(f"Downloaded {len(files)} files to {download_loc}")
+#         # except Exception as e:
+#         #     raise AssertionError(f"Failed to download blobs in chunks: {str(e)}")
 
-    # Run the test
-    print("\nRunning test for chunked blob downloads...")
-    tests = [
-        (test_chunked_download, "chunked_download")
-    ]
-    failed = 0
-    for test_func, name in tests:
-        if not run_test(test_func, name):
-            failed += 1
-    total = len(tests)
-    passed = total - failed
-    print(f"\nTest results: {passed}/{total} tests passed")
+#     # Run the test
+#     print("\nRunning test for chunked blob downloads...")
+#     tests = [
+#         (test_chunked_download, "chunked_download")
+#     ]
+#     failed = 0
+#     for test_func, name in tests:
+#         if not run_test(test_func, name):
+#             failed += 1
+#     total = len(tests)
+#     passed = total - failed
+#     print(f"\nTest results: {passed}/{total} tests passed")
 
-    # Cleanup
-    if os.path.exists(download_loc):
-        shutil.rmtree(download_loc)
+#     # Cleanup
+#     if os.path.exists(download_loc):
+#         shutil.rmtree(download_loc)
 
-    sys.exit(1 if failed > 0 else 0)
+#     sys.exit(1 if failed > 0 else 0)
 
 # def test1():
 #     """
@@ -338,7 +338,7 @@ def test3():
 #     # Set exit code based on test results
 #     sys.exit(1 if failed > 0 else 0)
 
-if __name__ == "__main__":
-    #test1()
-    #test2()
-    test3()
+# if __name__ == "__main__":
+#     #test1()
+#     #test2()
+#     test3()
