@@ -1,6 +1,7 @@
 import os
 from tqdm import tqdm
 from azure.storage.blob import BlobServiceClient
+import base64
 
 def get_account_url(storage_account):
     """
@@ -127,6 +128,28 @@ def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, 
                         total_bar.update(chunk_size)
             except Exception as e:
                 print(f"Failed to download {blob.name}: {e}")
+
+def get_blob_md5_checksums(account_url, container, sastoken, blob_list):
+    """
+    Retrieves MD5 checksums for a list of blobs in Azure Blob Storage.
+
+    Args:
+        account_url (str): The Azure Storage account URL.
+        container (str): The name of the container.
+        sastoken (str): The SAS token for authentication.
+        blob_list (list): List of BlobProperties objects.
+
+    Returns:
+        dict: A dictionary mapping blob names to their MD5 checksums (Base64), or None if not available.
+    """
+    checksums = {}
+    for blob in blob_list:
+        blob_client = BlobServiceClient(account_url=account_url, container_name=container,
+                                 blob_name=blob.name, credential=sastoken)
+        props = blob_client.get_blob_properties()
+        md5 = props.content_settings.content_md5
+        checksums[blob.name] = base64.b64encode(md5).decode('utf-8') if md5 else None
+    return checksums
 
 # def test3():
 #     """
