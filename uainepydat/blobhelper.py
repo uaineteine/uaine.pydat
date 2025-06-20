@@ -101,10 +101,6 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
         with open(down_path, "wb") as file:
             file.write(blob_client.download_blob().readall())
 
-from azure.storage.blob import BlobServiceClient
-from tqdm import tqdm
-import os
-
 def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, download_loc, 
                                  file_extn="", makedirs=True, chunk_size=16 * 1024 * 1024):
     blobs = list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn)
@@ -278,6 +274,7 @@ def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, 
 #     # Set exit code based on test results
 #     sys.exit(1 if failed > 0 else 0)
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
     #test1()
     #test2()
+    test3()
