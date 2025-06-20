@@ -143,9 +143,9 @@ def get_blob_md5_checksums(account_url, container, sastoken, blob_list):
         dict: A dictionary mapping blob names to their MD5 checksums (Base64), or None if not available.
     """
     checksums = {}
-    for blob in blob_list:
+    for blob in tqdm(blob_list, desc="Fetching checksums", unit="file"):
         blob_client = BlobServiceClient(account_url=account_url, container_name=container,
-                                 blob_name=blob.name, credential=sastoken)
+                                        blob_name=blob.name, credential=sastoken)
         props = blob_client.get_blob_properties()
         md5 = props.content_settings.content_md5
         checksums[blob.name] = base64.b64encode(md5).decode('utf-8') if md5 else None
