@@ -129,7 +129,7 @@ def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, 
             except Exception as e:
                 print(f"Failed to download {blob.name}: {e}")
 
-def get_blob_md5_checksums(account_url, container, sastoken, blob_list):
+def get_blob_md5_checksums(account_url, container, sastoken, blob_list, use_hex=False):
     """
     Retrieves MD5 checksums for a list of blobs in Azure Blob Storage.
 
@@ -138,9 +138,10 @@ def get_blob_md5_checksums(account_url, container, sastoken, blob_list):
         container (str): The name of the container.
         sastoken (str): The SAS token for authentication.
         blob_list (list): List of BlobProperties objects.
+        use_hex (bool): If True, returns checksum as hex; otherwise Base64. Default is False.
 
     Returns:
-        dict: A dictionary mapping blob names to their MD5 checksums (Base64), or None if not available.
+        dict: A dictionary mapping blob names to their MD5 checksums, or None if not available.
     """
     checksums = {}
     for blob in tqdm(blob_list, desc="Fetching checksums", unit="file"):
@@ -148,7 +149,10 @@ def get_blob_md5_checksums(account_url, container, sastoken, blob_list):
                                         blob_name=blob.name, credential=sastoken)
         props = blob_client.get_blob_properties()
         md5 = props.content_settings.content_md5
-        checksums[blob.name] = base64.b64encode(md5).decode('utf-8') if md5 else None
+        if md5:
+            checksums[blob.name] = md5.hex() if use_hex else base64.b64encode(md5).decode('utf-8')
+        else:
+            checksums[blob.name] = None
     return checksums
 
 # def test3():
