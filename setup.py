@@ -6,7 +6,7 @@ def read_requirements():
 
 setup(
     name='uainepydat',
-    version='1.5',
+    version='1.5.1',
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
     description='A python package to assist in data and database handling',

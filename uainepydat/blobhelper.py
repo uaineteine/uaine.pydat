@@ -90,7 +90,7 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
     """
     blobs = list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn)
 
-    os.makedirs(download_loc, exist_ok=True)
+    os.makedirs(download_loc, exist_ok=makedirs)
     
     blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
     cont_client = blob_serv_client.get_container_client(container)
@@ -101,18 +101,104 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
         with open(down_path, "wb") as file:
             file.write(blob_client.download_blob().readall())
 
+def download_all_blobs_in_chunks(account_url, container, folder_path, sastoken, download_loc, 
+                                 file_extn="", makedirs=True, chunk_size=16 * 1024 * 1024):
+    blobs = list(list_blob_content(account_url, container, folder_path, sastoken, file_extn=file_extn))
+    print(f"Number of blobs found: {len(blobs)}")
+    os.makedirs(download_loc, exist_ok=makedirs)
+
+    blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
+    cont_client = blob_serv_client.get_container_client(container)
+
+    # Precompute total download size
+    total_bytes = sum(blob.size for blob in blobs)
+    print(f"Downloading {round(total_bytes/1024/1024, 2)} MB of data")
+
+    with tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024, desc="Total Download") as total_bar:
+        for blob in blobs:
+            blob_client = cont_client.get_blob_client(blob.name)
+            down_path = os.path.join(download_loc, os.path.basename(blob.name))
+            print(f"Downloading to: {down_path}")
+            try:
+                with open(down_path, "wb") as file:
+                    stream = blob_client.download_blob()
+                    for chunk in stream.chunks(chunk_size):
+                        file.write(chunk)
+                        total_bar.update(chunk_size)
+            except Exception as e:
+                print(f"Failed to download {blob.name}: {e}")
+
+# def test3():
+#     """
+#     Test suite for chunked blob downloads using Azure Storage Emulator or a test account.
+#     Tests downloading blobs in chunks and verifies the download directory and files.
+#     """
+#     import sys
+#     import glob
+#     import shutil
+
+#     # Azure Storage Emulator or test account settings
+#     account_url = "http://127.0.0.1:10000/devstoreaccount1"  # Change as needed
+#     container = "test-container"
+#     sastoken = "?sv=2018-03-28&st=2025-06-20T06%3A25%3A16Z&se=2025-06-21T06%3A25%3A16Z&sr=c&sp=rl&sig=2Ds12w6B2h1hyP5VXFup%2BEZ16%2BvV3J3A3F%2BXtoYoyyM%3D"  # Example token
+#     test_folder = "test-folder"
+#     download_loc = "test-downloads-chunks"
+#     file_extn = ""  # Set to a specific extension if desired
+
+#     def run_test(test_func, name):
+#         try:
+#             test_func()
+#             print(f"✓ {name} passed")
+#             return True
+#         except Exception as e:
+#             print(f"✗ {name} failed: {str(e)}")
+#             return False
+
+#     def test_chunked_download():
+#         # try:
+#             # Download blobs in chunks
+#             download_all_blobs_in_chunks(account_url, container, test_folder, sastoken, download_loc, file_extn=file_extn, makedirs=True)
+#             print("assessing test")
+#             # Check if download directory was created
+#             assert os.path.exists(download_loc), f"Download directory {download_loc} was not created"
+#             # Check if at least one file was downloaded
+#             files = glob.glob(os.path.join(download_loc, "*"))
+#             assert len(files) > 0, f"No files were downloaded to {download_loc}"
+#             print(f"Downloaded {len(files)} files to {download_loc}")
+#         # except Exception as e:
+#         #     raise AssertionError(f"Failed to download blobs in chunks: {str(e)}")
+
+#     # Run the test
+#     print("\nRunning test for chunked blob downloads...")
+#     tests = [
+#         (test_chunked_download, "chunked_download")
+#     ]
+#     failed = 0
+#     for test_func, name in tests:
+#         if not run_test(test_func, name):
+#             failed += 1
+#     total = len(tests)
+#     passed = total - failed
+#     print(f"\nTest results: {passed}/{total} tests passed")
+
+#     # Cleanup
+#     if os.path.exists(download_loc):
+#         shutil.rmtree(download_loc)
+
+#     sys.exit(1 if failed > 0 else 0)
+
 # def test1():
 #     """
 #     Example usage and test suite for blob helper functions.
 #     """
 #     import sys
-    
+#     
 #     # Example usage
 #     storage_account = "yourstorageaccount"
 #     container = "yourcontainer"
 #     subfolder = "folder1/folder2"
 #     print(get_blob_subfolder_path(storage_account, container, subfolder))
-    
+#     
 #     def run_test(test_func, name):
 #         """Helper function to run and report test results"""
 #         try:
@@ -122,63 +208,63 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
 #         except AssertionError as e:
 #             print(f"✗ {name} failed: {e}")
 #             return False
-    
+#     
 #     def test_get_blob_container_path():
 #         """Test the get_blob_container_path function"""
 #         # Test case 1: Basic functionality
 #         result = get_blob_container_path("teststorage", "testcontainer")
 #         expected = "https://teststorage.blob.core.windows.net/testcontainer"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-        
+#         
 #         # Test case 2: Special characters in storage account name
 #         result = get_blob_container_path("test-storage", "testcontainer")
 #         expected = "https://test-storage.blob.core.windows.net/testcontainer"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-        
+#         
 #         # Test case 3: Special characters in container name
 #         result = get_blob_container_path("teststorage", "test-container")
 #         expected = "https://teststorage.blob.core.windows.net/test-container"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-    
+#     
 #     def test_get_blob_subfolder_path():
 #         """Test the get_blob_subfolder_path function"""
 #         # Test case 1: Basic functionality
 #         result = get_blob_subfolder_path("teststorage", "testcontainer", "testfolder")
 #         expected = "https://teststorage.blob.core.windows.net/testcontainer/testfolder"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-        
+#         
 #         # Test case 2: Nested subfolder path
 #         result = get_blob_subfolder_path("teststorage", "testcontainer", "folder1/folder2")
 #         expected = "https://teststorage.blob.core.windows.net/testcontainer/folder1/folder2"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-        
+#         
 #         # Test case 3: Subfolder with special characters
 #         result = get_blob_subfolder_path("teststorage", "testcontainer", "folder-with-dashes")
 #         expected = "https://teststorage.blob.core.windows.net/testcontainer/folder-with-dashes"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-        
+#         
 #         # Test case 4: Empty subfolder path
 #         result = get_blob_subfolder_path("teststorage", "testcontainer", "")
 #         expected = "https://teststorage.blob.core.windows.net/testcontainer/"
 #         assert result == expected, f"Expected '{expected}', got '{result}'"
-    
+#     
 #     # Run all tests
 #     print("Running tests for blobcontainer.py module...")
 #     tests = [
 #         (test_get_blob_container_path, "get_blob_container_path"),
 #         (test_get_blob_subfolder_path, "get_blob_subfolder_path")
 #     ]
-    
+#     
 #     failed = 0
 #     for test_func, name in tests:
 #         if not run_test(test_func, name):
 #             failed += 1
-    
+#     
 #     # Report test results
 #     total = len(tests)
 #     passed = total - failed
 #     print(f"\nTest results: {passed}/{total} tests passed")
-    
+#     
 #     # Set exit code based on test results
 #     sys.exit(1 if failed > 0 else 0)
 
@@ -188,14 +274,14 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
 #     Tests listing and downloading blobs from the emulator.
 #     """
 #     import sys
-    
+#     
 #     # Azure Storage Emulator settings
 #     account_url = "http://127.0.0.1:10000/devstoreaccount1"
 #     container = "test-container"
 #     sastoken = "?sv=2018-03-28&st=2025-06-15T10%3A36%3A47Z&se=2025-06-16T10%3A36%3A47Z&sr=c&sp=rl&sig=FzDNsOBYgBTXALSnaMFbTAludECRsg0uzA4ihhBp2V0%3D"  # Example token
 #     test_folder = "test-folder"
 #     download_loc = "test-downloads"
-    
+#     
 #     def run_test(test_func, name):
 #         """Helper function to run and report test results"""
 #         try:
@@ -205,7 +291,7 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
 #         except Exception as e:
 #             print(f"✗ {name} failed: {str(e)}")
 #             return False
-    
+#     
 #     def test_list_blobs():
 #         """Test listing blobs from the container"""
 #         try:
@@ -216,7 +302,7 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
 #             return True
 #         except Exception as e:
 #             raise AssertionError(f"Failed to list blobs: {str(e)}")
-    
+#     
 #     def test_download_blobs():
 #         """Test downloading blobs from the container"""
 #         try:
@@ -226,32 +312,33 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
 #             return True
 #         except Exception as e:
 #             raise AssertionError(f"Failed to download blobs: {str(e)}")
-    
+#     
 #     # Run all tests
 #     print("\nRunning tests for blob operations using Azure Storage Emulator...")
 #     tests = [
 #         (test_list_blobs, "list_blobs"),
 #         (test_download_blobs, "download_blobs")
 #     ]
-    
+#     
 #     failed = 0
 #     for test_func, name in tests:
 #         if not run_test(test_func, name):
 #             failed += 1
-    
+#     
 #     # Report test results
 #     total = len(tests)
 #     passed = total - failed
 #     print(f"\nTest results: {passed}/{total} tests passed")
-    
+#     
 #     # Cleanup
 #     if os.path.exists(download_loc):
 #         import shutil
 #         shutil.rmtree(download_loc)
-    
+#     
 #     # Set exit code based on test results
 #     sys.exit(1 if failed > 0 else 0)
 
-#if __name__ == "__main__":
-    #test1()
-    #test2()
+# if __name__ == "__main__":
+#     #test1()
+#     #test2()
+#     test3()

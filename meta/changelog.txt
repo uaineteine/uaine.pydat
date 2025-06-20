@@ -1,3 +1,8 @@
+Version 1.5.1
+^^^^^^^^^^^^^
+* Blob helper module fix on makedirs argument for Downloads
+* New chunking based function for downloading blobs
+
 Version 1.5
 ^^^^^^^^^^^^^
 * Enhanced blob helper module with new functions:
