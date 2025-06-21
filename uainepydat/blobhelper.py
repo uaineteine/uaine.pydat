@@ -325,6 +325,10 @@ def test4():
             # Get checksums in both formats
             checksums_base64 = get_blob_md5_checksums(account_url, container, sastoken, blob_list, use_hex=False)
             checksums_hex = get_blob_md5_checksums(account_url, container, sastoken, blob_list, use_hex=True)
+
+            print(checksums_base64)
+            print("")
+            print(checksums_hex)
             
             # Verify that both dictionaries have the same keys
             assert set(checksums_base64.keys()) == set(checksums_hex.keys()), "Both checksum formats should have the same blob keys"
