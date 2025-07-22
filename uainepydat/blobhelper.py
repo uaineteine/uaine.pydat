@@ -2,6 +2,31 @@ import os
 from tqdm import tqdm
 from azure.storage.blob import BlobServiceClient, BlobClient
 import base64
+from azure.core.exceptions import ClientAuthenticationError, HttpResponseError
+
+def check_sas_token(account_url, container, sastoken):
+    """
+    Checks if the provided SAS token is valid for the given container.
+
+    Args:
+        account_url (str): The Azure Storage account URL.
+        container (str): The name of the container to check access for.
+        sastoken (str): The SAS token to validate.
+
+    Returns:
+        bool: True if the SAS token is valid and has access, False otherwise.
+        str: Optional error message if invalid.
+    """
+    try:
+        blob_serv_client = BlobServiceClient(account_url=account_url, credential=sastoken)
+        cont_client = blob_serv_client.get_container_client(container)
+        # Try a lightweight operation
+        cont_client.get_container_properties()
+        return True, "SAS token is valid."
+    except (ClientAuthenticationError, HttpResponseError) as e:
+        return False, f"SAS token is invalid or does not have access: {e}"
+    except Exception as e:
+        return False, f"Unexpected error: {e}"
 
 def get_account_url(storage_account):
     """
