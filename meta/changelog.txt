@@ -1,3 +1,11 @@
+Version 1.5.3
+^^^^^^^^^^^^^
+* Blob helper module now contains a function for checking if a SAS token works for a container
+
+Version 1.5.2
+^^^^^^^^^^^^^
+* Blob helper module now contains a checksum function for listed blobs
+
 Version 1.5.1
 ^^^^^^^^^^^^^
 * Blob helper module fix on makedirs argument for Downloads
