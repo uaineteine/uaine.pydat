@@ -1,3 +1,10 @@
+Version 1.6
+^^^^^^^^^^^^^
+* Added new module: ``frameverifier``
+
+  - Provides the ``FrameTypeVerifier`` class for verifying DataFrame types (``pandas``, ``pyspark``, ``polars``).
+  - Ensures compatibility and correctness when working with different
+  
 Version 1.5.3
 ^^^^^^^^^^^^^
 * Blob helper module now contains a function for checking if a SAS token works for a container
