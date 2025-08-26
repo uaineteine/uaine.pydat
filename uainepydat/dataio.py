@@ -1,17 +1,12 @@
 import os
 import configparser
 import pandas as pd
-import json
 import polars as pl
 from io import StringIO
 from uainepydat import fileio
 from uainepydat import datatransform
-import pyreadstat # Read in SAS7BDAT files into Pandas DataFrames
-import time # Display the execution time of program
-import multiprocessing as mp # Leverages multiple CPU cores to increase I/O time and efficiency
 from typing import Optional, List
-import inspect
-import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def csv_to_parquet(input_file: str, separator: str = ",", output_file: str= None) -> None:
     """
@@ -31,6 +26,47 @@ def csv_to_parquet(input_file: str, separator: str = ",", output_file: str= None
     # Read the CSV file in streaming mode and then write to Parquet
     df = pl.scan_csv(input_file, separator=separator)
     df.sink_parquet(output_file)
+
+def sas_to_parquet_chunks_mt(
+    sas_file: str,
+    out_dir: str,
+    rows_per_chunk: int = 100_000,
+    format: str = "sas7bdat",
+    max_workers: int = 4,
+    max_inflight: int = 8,  # cap number of chunks held in memory
+    parquet_engine: str = "pyarrow"  # or 'fastparquet'
+):
+    def _write_chunk(chunk, out_path):
+        chunk.to_parquet(out_path, engine=parquet_engine, index=False)
+        return out_path
+
+    def _wait_some(futures):
+        """Wait until at least one future completes, return (done, not_done)."""
+        from concurrent.futures import wait, FIRST_COMPLETED
+        done, not_done = wait(futures, return_when=FIRST_COMPLETED)
+        return done, list(not_done)
+
+    os.makedirs(out_dir, exist_ok=True)
+
+    reader = pd.read_sas(sas_file, format=format, chunksize=rows_per_chunk, encoding="latin-1")
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = []
+        for i, chunk in enumerate(reader):
+            out_path = os.path.join(out_dir, f"part_{i:05d}.parquet")
+            futures.append(executor.submit(_write_chunk, chunk, out_path))
+
+            # prevent too many chunks from piling up in memory
+            if len(futures) >= max_inflight:
+                done, futures = _wait_some(futures)
+                for f in done:
+                    print(f"→ Wrote {f.result()}")
+
+        # flush remaining
+        for f in as_completed(futures):
+            print(f"→ Wrote {f.result()}")
+
+    print(f"✅ Finished splitting {sas_file} into Parquet chunks at {out_dir}")
 
 def read_sas_metadata(filepath: str, encoding: str = "latin-1") -> dict:
     """

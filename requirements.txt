@@ -1,5 +1,5 @@
 pandas
-pyreadstat
+pyreadstat>=1.2.8,<=1.3.0
 requests
 duckdb
 wheel
@@ -9,3 +9,4 @@ lxml
 polars
 azure-storage-blob
 tqdm
+pyarrow

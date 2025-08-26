@@ -1,3 +1,8 @@
+Version 1.6.1
+^^^^^^^^^^^^^
+* Added new function to datatio module:
+  - ``sas_to_parquet_chunks_mt``: Converts SAS files to Parquet format in parallel, splitting the data into manageable chunks for efficient processing. Supports custom chunk sizes, output directories, and multiple Parquet engines.
+
 Version 1.6
 ^^^^^^^^^^^^^
 * Added new module: ``frameverifier``
