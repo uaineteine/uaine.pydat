@@ -3,6 +3,47 @@ import json
 import os
 from io import StringIO
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+def sas_to_parquet_chunks_mt(
+    sas_file: str,
+    out_dir: str,
+    rows_per_chunk: int = 100_000,
+    format: str = "sas7bdat",
+    max_workers: int = 4,
+    max_inflight: int = 8,  # cap number of chunks held in memory
+):
+    def _write_chunk(chunk, out_path):
+        chunk.to_parquet(out_path, engine="pyarrow", index=False)
+        return out_path
+
+    def _wait_some(futures):
+        """Wait until at least one future completes, return (done, not_done)."""
+        from concurrent.futures import wait, FIRST_COMPLETED
+        done, not_done = wait(futures, return_when=FIRST_COMPLETED)
+        return done, list(not_done)
+
+    os.makedirs(out_dir, exist_ok=True)
+
+    reader = pd.read_sas(sas_file, format=format, chunksize=rows_per_chunk, encoding="latin-1")
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = []
+        for i, chunk in enumerate(reader):
+            out_path = os.path.join(out_dir, f"part_{i:05d}.parquet")
+            futures.append(executor.submit(_write_chunk, chunk, out_path))
+
+            # prevent too many chunks from piling up in memory
+            if len(futures) >= max_inflight:
+                done, futures = _wait_some(futures)
+                for f in done:
+                    print(f"→ Wrote {f.result()}")
+
+        # flush remaining
+        for f in as_completed(futures):
+            print(f"→ Wrote {f.result()}")
+
+    print(f"✅ Finished splitting {sas_file} into Parquet chunks at {out_dir}")
 
 def replace_between_tags(content: str, tag_name: str, new_lines: list[str], deleteTags=False) -> str:
     start_tag = f'<{tag_name}>'
