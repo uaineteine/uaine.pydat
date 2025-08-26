@@ -12,9 +12,10 @@ def sas_to_parquet_chunks_mt(
     format: str = "sas7bdat",
     max_workers: int = 4,
     max_inflight: int = 8,  # cap number of chunks held in memory
+    parquet_engine: str = "pyarrow"  # or 'fastparquet'
 ):
     def _write_chunk(chunk, out_path):
-        chunk.to_parquet(out_path, engine="pyarrow", index=False)
+        chunk.to_parquet(out_path, engine=parquet_engine, index=False)
         return out_path
 
     def _wait_some(futures):
