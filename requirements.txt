@@ -1,5 +1,5 @@
 pandas
-pyreadstat==1.3.0
+pyreadstat>=1.2.8,<=1.3.0
 requests
 duckdb
 wheel
@@ -7,6 +7,4 @@ twine
 psutil
 lxml
 polars
-azure-storage-blob
-tqdm
-pyarrow
+azure-storage-
