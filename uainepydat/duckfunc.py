@@ -1,3 +1,5 @@
+import os
+import sys
 from datetime import datetime
 from pandas import DataFrame
 from uainepydat import dataio
@@ -153,3 +155,38 @@ def save_from_db(con, db_name: str, table_name: str, output_path: str) -> bool:
     
     print(f"Dumped {db_name}.{table_name} to {output_path}")
     return True
+
+def load_csv_to_db(con, tablename:str, csvpath:str):
+    """
+    Load a csv file directly to a table
+    """
+    if not os.path.exists(csvpath):
+        raise FileNotFoundError(f"CSV file {csvpath} does not exist.")
+    
+    con.execute(f"""
+        CREATE TABLE IF NOT EXISTS {tablename} AS SELECT * FROM read_csv_auto('{csvpath}')
+    """)
+
+def make_version_meta_table(con, schema_version:str, db_name:str):
+        """
+        Create or update a meta table including the following content:
+        
+        * database version
+        * python version
+        * duckdb version
+        """
+        duckdbver = getDuckVersion(con)
+        pyver = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        con.execute("""
+            CREATE TABLE IF NOT EXISTS meta (
+                key VARCHAR PRIMARY KEY,
+                value VARCHAR
+            )
+        """)
+        con.execute("DELETE FROM meta")
+        meta_entries = [
+            (f"{db_name}_version", schema_version),
+            ("duckdb_version", duckdbver),
+            ("python_version", pyver)
+        ]
+        con.executemany("INSERT INTO meta (key, value) VALUES (?, ?)", meta_entries)
