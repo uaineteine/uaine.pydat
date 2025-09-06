@@ -160,12 +160,12 @@ def load_csv_to_db(con, tablename:str, csvpath:str):
     """
     Load a csv file directly to a table
     """
-        if not os.path.exists(csvpath):
-            raise FileNotFoundError(f"CSV file {csvpath} does not exist.")
-        
-        con.execute(f"""
-            CREATE TABLE IF NOT EXISTS {tablename} AS SELECT * FROM read_csv_auto('{csvpath}')
-        """)
+    if not os.path.exists(csvpath):
+        raise FileNotFoundError(f"CSV file {csvpath} does not exist.")
+    
+    con.execute(f"""
+        CREATE TABLE IF NOT EXISTS {tablename} AS SELECT * FROM read_csv_auto('{csvpath}')
+    """)
 
 def make_version_meta_table(con, schema_version:str, db_name:str):
         """
