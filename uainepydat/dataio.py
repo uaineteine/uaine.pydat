@@ -36,6 +36,58 @@ def sas_to_parquet_chunks_mt(
     max_inflight: int = 8,  # cap number of chunks held in memory
     parquet_engine: str = "pyarrow"  # or 'fastparquet'
 ):
+    """
+    Convert a large SAS file into multiple Parquet files by processing it in chunks
+    using multithreading for parallel writes.
+
+    The function reads the input SAS dataset in chunks, writes each chunk
+    as a Parquet file, and ensures that the number of in-memory chunks is capped
+    to avoid excessive memory usage.
+
+    Parameters
+    ----------
+    sas_file : str
+        Path to the input SAS file (e.g., ``.sas7bdat``).
+    out_dir : str
+        Directory where the resulting Parquet files will be written. Created if it
+        does not exist.
+    rows_per_chunk : int, optional
+        Number of rows per chunk to read and write. Defaults to ``100_000``.
+    format : str, optional
+        File format for the SAS reader (typically ``"sas7bdat"`` or ``"xport"``).
+        Defaults to ``"sas7bdat"``.
+    max_workers : int, optional
+        Maximum number of worker threads for concurrent Parquet writing. Defaults to ``4``.
+    max_inflight : int, optional
+        Maximum number of chunks allowed to be pending in memory before waiting for
+        some to finish. Defaults to ``8``.
+    parquet_engine : str, optional
+        Parquet backend to use. Supported values are ``"pyarrow"`` and ``"fastparquet"``.
+        Defaults to ``"pyarrow"``.
+
+    Returns
+    -------
+    None
+        This function writes output files to ``out_dir`` and prints progress to stdout.
+
+    Notes
+    -----
+    - Output files are named sequentially as ``part_00000.parquet``, ``part_00001.parquet``,
+      and so on.
+    - Uses :class:`concurrent.futures.ThreadPoolExecutor` for concurrent writes.
+    - Uses ``pandas.read_sas`` with chunking enabled.
+    - Helps process very large SAS datasets without loading them entirely into memory.
+
+    Examples
+    --------
+    >>> sas_to_parquet_chunks_mt(
+    ...     sas_file="data/huge_dataset.sas7bdat",
+    ...     out_dir="parquet_chunks",
+    ...     rows_per_chunk=50_000,
+    ...     max_workers=8,
+    ...     parquet_engine="fastparquet"
+    ... )
+    """
     def _write_chunk(chunk, out_path):
         chunk.to_parquet(out_path, engine=parquet_engine, index=False)
         return out_path
