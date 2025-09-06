@@ -66,7 +66,7 @@ def sas_to_parquet_chunks_mt(
         for f in as_completed(futures):
             print(f"→ Wrote {f.result()}")
 
-    print(f"✅ Finished splitting {sas_file} into Parquet chunks at {out_dir}")
+    print(f"Finished splitting {sas_file} into Parquet chunks at {out_dir}")
 
 def read_sas_metadata(filepath: str, encoding: str = "latin-1") -> dict:
     """
