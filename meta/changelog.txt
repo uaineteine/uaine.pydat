@@ -1,5 +1,10 @@
 Version 1.6.3
 ^^^^^^^^^^^^^
+* Fix
+  - Frame verification now accepting lazy frames as well as eager frames for polars
+
+Version 1.6.2
+^^^^^^^^^^^^^
 * Added new functions to the duckdb helper module:
   - ``load_csv_to_db``: Loads a CSV file as a table to the database from a filepath
   - ``make_version_meta_table``: An automatic creation of a metadata table for duckdb including versioning info
