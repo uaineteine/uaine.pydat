@@ -1,4 +1,4 @@
-Version 1.6.2
+Version 1.6.3
 ^^^^^^^^^^^^^
 * Added new functions to the duckdb helper module:
   - ``load_csv_to_db``: Loads a CSV file as a table to the database from a filepath

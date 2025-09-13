@@ -47,5 +47,5 @@ class FrameTypeVerifier:
                 import polars as pl
             except ImportError:
                 pl = None
-            if not isinstance(df, pl.DataFrame):
-                raise TypeError("df must be a Polars DataFrame when frame_type is 'polars'")
+            if pl is None or not isinstance(df, (pl.DataFrame, pl.LazyFrame)):
+                raise TypeError("df must be a Polars DataFrame or LazyFrame when frame_type is 'polars'")
