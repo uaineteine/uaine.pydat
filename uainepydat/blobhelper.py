@@ -122,8 +122,11 @@ def download_all_blobs(account_url, container, folder_path, sastoken, download_l
     cont_client = blob_serv_client.get_container_client(container)
     for blob in tqdm(blobs, desc="Downloading", unit="file"):
         blob_client = cont_client.get_blob_client(blob.name)
-        down_path = os.path.join(download_loc, os.path.basename(blob.name))
-    
+        #get the folder path under the blob.name but remove the folder_path prefix
+        blob_folder_path = blob.name[len(folder_path):]
+        down_path = os.path.join(download_loc, blob_folder_path)
+        os.makedirs(os.path.dirname(down_path), exist_ok=True)
+        
         with open(down_path, "wb") as file:
             file.write(blob_client.download_blob().readall())
 
