@@ -1,4 +1,4 @@
-Version 1.6.3
+Version 1.6.4
 ^^^^^^^^^^^^^
 * Fix
   - Frame verification now accepting lazy frames as well as eager frames for polars
